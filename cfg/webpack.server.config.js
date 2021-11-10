@@ -17,13 +17,33 @@ module.exports = {
     externals: [nodeExternals()],
     module: {
         rules: [
-            {
-                test: /\.[tj]sx?$/,
-                use: ['ts-loader']
-            }
-        ]
+        {
+            test: /\.[tj]sx?$/,
+            use: ['ts-loader']
+        },
+        {    
+            test: /\.less$/,
+            use: [ 
+                {
+                    loader: 'css-loader',
+                    options: { 
+                            //включит настройки модуля лоадера
+                            modules: {
+                                //включит локальные селекторы
+                                mode: 'local',
+                                //как будет называться новый селектор
+                                localIdentName: '[name]__[local]--[hash:base64:5]'
+                            },
+                            //css-loader не собирал стили на сервер глобально - нужен только селектор
+                            onlyLocals: true
+                        }
+                },
+                'less-loader',
+            ]
+        }
+    ]
     },
-    optimization: {
+      optimization: {
         minimize: false,
-    }
+      }
 };
