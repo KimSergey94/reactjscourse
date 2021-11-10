@@ -12,14 +12,8 @@ const clientCompiler = webpack(webpackClientConfig);
 const hmrServer = express();
 
 hmrServer.use(webpackDevMiddleware(clientCompiler, {
-    publicPath: webpackClientConfig
-                    .output
-                    .publicPath,
+    publicPath: webpackClientConfig.output.publicPath,
     serverSideRender: true,
-    noInfo: true,
-    watchOptions: {
-        ignore:'/dist',
-    },
     writeToDisk: true,
     stats: 'errors-only'
 }))
@@ -32,23 +26,18 @@ hmrServer.listen(3001, () => {
     console.log('HMR Server successfully started');
 })
 
-compiler.run((err) => {
+
+compiler.watch({}, (err) => {
     if(err) {
         console.log('Compilation failed: ', err)
     }
+    console.log('Compilation was successfully')
+});
 
-    compiler.watch({}, (err) => {
-        if(err) {
-            console.log('Compilation failed: ', err)
-        }
-        console.log('Compilation was successfully')
-    })
-
-    nodemon({
-        script: path.resolve(__dirname, '../dist/server/server.js'),
-        watch: [
-            path.resolve(__dirname, '../dist/server'),
-            path.resolve(__dirname, '../dist/client')
-        ]
-    })
-})
+nodemon({
+    script: path.resolve(__dirname, '../dist/server/server.js'),
+    watch: [
+        path.resolve(__dirname, '../dist/server'),
+        path.resolve(__dirname, '../dist/client')
+    ]
+});
