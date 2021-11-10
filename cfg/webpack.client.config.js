@@ -12,6 +12,9 @@ function setupDevtool(){
 }
 
 module.exports = {
+    watchOptions: {
+        ignored: '/dist',
+      },
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         alias: {
@@ -37,7 +40,10 @@ module.exports = {
         {    
             test: /\.less$/,
             use: 
-            ['style-loader', 
+            [
+                {
+                    loader: 'style-loader', 
+                },
                 {
                     loader: 'css-loader',
                     options: { 
@@ -50,7 +56,9 @@ module.exports = {
                         }
                     }
                 },
-                'less-loader',
+                {
+                    loader: 'less-loader',
+                }
             ]
         }
     ]

@@ -23,7 +23,8 @@ module.exports = {
         },
         {    
             test: /\.less$/,
-            use: [ 
+            use: 
+            [ 
                 {
                     loader: 'css-loader',
                     options: { 
@@ -32,13 +33,14 @@ module.exports = {
                                 //включит локальные селекторы
                                 mode: 'local',
                                 //как будет называться новый селектор
-                                localIdentName: '[name]__[local]--[hash:base64:5]'
-                            },
-                            //css-loader не собирал стили на сервер глобально - нужен только селектор
-                            onlyLocals: true
+                                localIdentName: '[name]__[local]--[hash:base64:5]',
+                                exportOnlyLocals: true
+                            }
                         }
                 },
-                'less-loader',
+                {
+                    loader: 'less-loader',
+                }
             ]
         }
     ]
