@@ -4,7 +4,7 @@ export const indexTemplate = (content) => `
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reddit for me</title>
+    <title>Hello React</title>
     <script src='/static/client.js' type='application/javascript'></script>
 </head>
 <body>
