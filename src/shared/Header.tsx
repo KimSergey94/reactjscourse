@@ -3,7 +3,7 @@ import * as React from 'react';
 import styles from './header.less';
 import {concat} from './3.8'
 
-function Header() {
+function HeaderComponent() {
     console.log(styles, styles.example);
     console.log(concat('Hello','World'));
     
@@ -14,4 +14,4 @@ function Header() {
     );
 }
 
-export const Header = hot(Header);
+export const Header = hot(HeaderComponent);
