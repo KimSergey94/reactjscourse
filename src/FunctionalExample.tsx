@@ -1,10 +1,11 @@
 //карирование - отложенный вызов функции (callback?)
 
-import React from "react";
 import { stopPropagation } from "./utils/react/stopPropagation";
 import { preventDefault } from "./utils/react/preventDefault";
+import { getChecked, getValue } from "./utils/react/pickFromSyntheticEvent";
+import React from "react";
 
-add(1)(1) //:2
+//add(1)(1) //:2
 
 // function add(leftSide: number) {
 //     return (rightSide: number) => leftSide + rightSide;
@@ -34,16 +35,16 @@ window.addEventListener('resize', () => {});
 
 // --- //
 
-const withIdKey = withKey('id');
-const withIndexKey = withKey();
+// const withIdKey = withKey('id');
+// const withIndexKey = withKey();
 
-function Feed(props: { blocks: IBlockProps[]} ) {
-    return (
-        <div>
-            { props.blocks.map(withIdKey(Block)) }
-        </div>
-    )
-}
+// function Feed(props: { blocks: IBlockProps[]} ) {
+//     return (
+//         <div>
+//             { props.blocks.map(withIdKey(Block)) }
+//         </div>
+//     )
+// }
 
 interface IBlockProps {
     title: string;
@@ -56,15 +57,15 @@ function Block(props: IBlockProps) {
     )
 }
 
-function withKey(key?: string) {
-    return <E, T extends React.ComponentType<E>>(component: T) =>
-        (props: E, index: number) => 
-            React.createElement(
-                component, 
-                { ...props, key: key ? props[key as keyof E] : index },
-                [],
-            );
-}
+// function withKey(key?: string) {
+//     return <E, T extends React.ComponentType<E>>(component: T) =>
+//         (props: E, index: number) => 
+//             React.createElement(
+//                 component, 
+//                 { ...props, key: key ? props[key as keyof E] : index },
+//                 [],
+//             );
+// }
 
 ///
 
@@ -81,16 +82,6 @@ function Checkbox(props: {onChange: (value: boolean) => void, value: boolean }) 
 }
 
 
-function pickFromSyntheticEvent<T extends HTMLElement>() {
-    return <K extends keyof T>(key: K) => 
-        <E extends ((t: T[K]) => void)>(fn: E) => 
-            (e: React.SyntheticEvent<T>) => 
-                fn(e.currentTarget[key]);
-}
-
-export const  getValue = pickFromSyntheticEvent<HTMLInputElement>()('value')
-export const  getChecked = pickFromSyntheticEvent<HTMLInputElement>()('checked')
-
 // композиция
 function NotStandardLink(props: any) {
     return (
@@ -102,9 +93,8 @@ interface InputProps {
     onChange: (value: string) => void;
     value: string;
 }
-function Input({value, onChange}: InputProps ) {
-    return(
-        <input value={value} onChange={preventDefault(stopPropagation(getValue(onChange)))}/> //композиция
-    )
-}
-
+// function Input({value, onChange}: InputProps ) {
+//     return(
+//         <input value={value} onChange={preventDefault(stopPropagation(getValue(onChange)))}/> //композиция
+//     )
+// }
