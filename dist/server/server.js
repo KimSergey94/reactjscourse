@@ -166,17 +166,7 @@ eval("\r\nmodule.exports = function (i) {\r\n    return i[1];\r\n};\r\n\n\n//# s
   \*********************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.App = void 0;\r\nvar react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\r\nvar root_1 = __webpack_require__(/*! react-hot-loader/root */ \"react-hot-loader/root\");\r\nvar Layout_1 = __webpack_require__(/*! ./shared/Layout/Layout */ \"./src/shared/Layout/Layout.tsx\");\r\n__webpack_require__(/*! ./main.global.less */ \"./src/main.global.less\");\r\nvar Header_1 = __webpack_require__(/*! ./shared/Header/Header */ \"./src/shared/Header/Header.tsx\");\r\nvar Content_1 = __webpack_require__(/*! ./shared/Content/Content */ \"./src/shared/Content/Content.tsx\");\r\nvar CardsList_1 = __webpack_require__(/*! ./shared/CardsList/CardsList */ \"./src/shared/CardsList/CardsList.tsx\");\r\nvar pickFromSyntheticEvent_1 = __webpack_require__(/*! ./utils/react/pickFromSyntheticEvent */ \"./src/utils/react/pickFromSyntheticEvent.tsx\");\r\nvar HooksExamples_1 = __webpack_require__(/*! ./HooksExamples */ \"./src/HooksExamples.tsx\");\r\nfunction AppComponent() {\r\n    //const [isVisible, setIsVisible] = React.useState(true);\r\n    var _a = react_1.default.useState(''), title = _a[0], setTitle = _a[1];\r\n    var isVisible = (0, HooksExamples_1.useIsMounted)()[0];\r\n    return (react_1.default.createElement(Layout_1.Layout, null,\r\n        react_1.default.createElement(Header_1.Header, null),\r\n        react_1.default.createElement(Content_1.Content, null,\r\n            react_1.default.createElement(CardsList_1.CardsList, null),\r\n            react_1.default.createElement(\"input\", { type: \"text\", onChange: (0, pickFromSyntheticEvent_1.getValue)(setTitle) }),\r\n            isVisible && react_1.default.createElement(HooksExamples_1.MyHooks, { title: title, id: \"11\" }))));\r\n}\r\nexports.App = (0, root_1.hot)(AppComponent);\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/App.tsx?");
-
-/***/ }),
-
-/***/ "./src/HooksExamples.tsx":
-/*!*******************************!*\
-  !*** ./src/HooksExamples.tsx ***!
-  \*******************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-eval("\r\n// Какие бьывают хуки:\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.calculate = exports.useIsMounted = exports.MyHooks = void 0;\r\n// 1. useState\r\n// 2. useEffect\r\n// 3. useRef\r\n// 4. useReducer\r\n// 5. useMemo\r\n// 6. useContext\r\n// 7. useCallback\r\n// 8. useImperativeHandle\r\n// 9. useLayoutEffect\r\n// 10. useDebugValue\r\nvar react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\r\nfunction MyHooks(_a) {\r\n    // React.useEffect(()=>{\r\n    //     console.log('componentDidMount');\r\n    //     console.log('componentWillUpdate');\r\n    // });\r\n    // React.useEffect(()=>{\r\n    //     console.log('componentDidMount');\r\n    // }, []);\r\n    // React.useEffect(()=>{\r\n    //     console.log('componentWillReceiveProps: ', title);\r\n    // }, [title]);\r\n    var title = _a.title, id = _a.id;\r\n    // const [isMounted] = useIsMounted();\r\n    // React.useEffect(() => {\r\n    //     console.log('isMounted', isMounted);\r\n    // }, [isMounted])\r\n    var items = 10;\r\n    var multiplier = 5;\r\n    var result = react_1.default.useMemo(function () {\r\n        console.log(\"CALC\");\r\n        calculate(items, multiplier);\r\n    }, [items, multiplier]);\r\n    return (react_1.default.createElement(\"div\", null,\r\n        title,\r\n        \" \",\r\n        id,\r\n        \" \")\r\n    // {result}\r\n    );\r\n}\r\nexports.MyHooks = MyHooks;\r\nfunction useIsMounted() {\r\n    var _a = react_1.default.useState(false), isMounted = _a[0], setIsMounted = _a[1];\r\n    react_1.default.useEffect(function () {\r\n        setIsMounted(true);\r\n    }, []);\r\n    return [isMounted];\r\n}\r\nexports.useIsMounted = useIsMounted;\r\nfunction calculate(items, multiplier) {\r\n    return new Array(items).fill(1).reduce(function (a, v) { return a * multiplier; });\r\n}\r\nexports.calculate = calculate;\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/HooksExamples.tsx?");
+eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.App = void 0;\r\nvar react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\r\nvar root_1 = __webpack_require__(/*! react-hot-loader/root */ \"react-hot-loader/root\");\r\nvar Layout_1 = __webpack_require__(/*! ./shared/Layout/Layout */ \"./src/shared/Layout/Layout.tsx\");\r\n__webpack_require__(/*! ./main.global.less */ \"./src/main.global.less\");\r\nvar Header_1 = __webpack_require__(/*! ./shared/Header/Header */ \"./src/shared/Header/Header.tsx\");\r\nvar Content_1 = __webpack_require__(/*! ./shared/Content/Content */ \"./src/shared/Content/Content.tsx\");\r\nvar CardsList_1 = __webpack_require__(/*! ./shared/CardsList/CardsList */ \"./src/shared/CardsList/CardsList.tsx\");\r\nvar GenericList_1 = __webpack_require__(/*! ./shared/GenericList/GenericList */ \"./src/shared/GenericList/GenericList.tsx\");\r\nvar generateRandomIndex_1 = __webpack_require__(/*! ./utils/react/generateRandomIndex */ \"./src/utils/react/generateRandomIndex.ts\");\r\nvar merge_1 = __webpack_require__(/*! ./utils/js/merge */ \"./src/utils/js/merge.ts\");\r\nvar LIST = [\r\n    { As: 'li', text: 'some' },\r\n    { As: 'li', text: 'some2' },\r\n    { As: 'li', text: 'some3' },\r\n    { As: 'li', text: 'some4' },\r\n].map(generateRandomIndex_1.assignId);\r\nfunction AppComponent() {\r\n    //const [isVisible, setIsVisible] = React.useState(true);\r\n    //  const [title, setTitle] = React.useState('');\r\n    //  const [isVisible] = useIsMounted();\r\n    var _a = react_1.default.useState(LIST), list = _a[0], setList = _a[1];\r\n    var handleItemClick = function (id) {\r\n        setList(list.filter(function (item) { return item.id !== id; }));\r\n    };\r\n    var handleAdd = function () {\r\n        setList(list.concat(((0, generateRandomIndex_1.generateId)({ text: (0, generateRandomIndex_1.generateRandomString)(), As: 'li' }))));\r\n    };\r\n    return (react_1.default.createElement(Layout_1.Layout, null,\r\n        react_1.default.createElement(Header_1.Header, null),\r\n        react_1.default.createElement(Content_1.Content, null,\r\n            react_1.default.createElement(CardsList_1.CardsList, null),\r\n            react_1.default.createElement(\"button\", { onClick: handleAdd }, \"Add Element\"),\r\n            react_1.default.createElement(GenericList_1.GenericList, { list: list.map((0, merge_1.merge)({ onClick: function () { console.log('click'); } })) }))));\r\n}\r\nexports.App = (0, root_1.hot)(function () { return react_1.default.createElement(AppComponent, null); });\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/App.tsx?");
 
 /***/ }),
 
@@ -270,6 +260,16 @@ eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod)
 
 /***/ }),
 
+/***/ "./src/shared/GenericList/GenericList.tsx":
+/*!************************************************!*\
+  !*** ./src/shared/GenericList/GenericList.tsx ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.GenericList = void 0;\r\nvar react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\r\n// export function MyList({list}: IMyListProps) {\r\n//     return (\r\n//         <ul>\r\n//             {list.map((item:IItem, index:number)=>(\r\n//                 <li onClick={() => item.onClick(item.id)} key={index}>{item.value}</li>\r\n//             ))}\r\n//         </ul>\r\n//     );\r\n// }\r\nvar noop = function () { };\r\nfunction GenericList(_a) {\r\n    var list = _a.list;\r\n    return (react_1.default.createElement(react_1.default.Fragment, null, list.map(function (_a) {\r\n        var _b = _a.As, As = _b === void 0 ? 'div' : _b, text = _a.text, _c = _a.onClick, onClick = _c === void 0 ? noop : _c, className = _a.className, id = _a.id, href = _a.href;\r\n        return (react_1.default.createElement(As, { className: className, onClick: function () { return onClick(id); }, key: id, href: href }, text));\r\n    })));\r\n}\r\nexports.GenericList = GenericList;\r\nvar jsxs = [\r\n    react_1.default.createElement(\"li\", { key: 0 }, \"Content 0\"),\r\n    react_1.default.createElement(\"li\", { key: 1 }, \"Content 1\"),\r\n    react_1.default.createElement(\"li\", { key: 2 }, \"Content 2\"),\r\n    react_1.default.createElement(\"li\", { key: 3 }, \"Content 3\"),\r\n    react_1.default.createElement(\"li\", { key: 4 }, \"Content 4\")\r\n];\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/shared/GenericList/GenericList.tsx?");
+
+/***/ }),
+
 /***/ "./src/shared/Header/Header.tsx":
 /*!**************************************!*\
   !*** ./src/shared/Header/Header.tsx ***!
@@ -320,13 +320,33 @@ eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod)
 
 /***/ }),
 
-/***/ "./src/utils/react/pickFromSyntheticEvent.tsx":
-/*!****************************************************!*\
-  !*** ./src/utils/react/pickFromSyntheticEvent.tsx ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "./src/utils/js/assoc.ts":
+/*!*******************************!*\
+  !*** ./src/utils/js/assoc.ts ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, exports) {
 
-eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.getChecked = exports.getValue = void 0;\r\nfunction pickFromSyntheticEvent() {\r\n    return function (key) { return function (fn) { return function (e) { return fn(e.currentTarget[key]); }; }; };\r\n}\r\nexports.getValue = pickFromSyntheticEvent()('value');\r\nexports.getChecked = pickFromSyntheticEvent()('checked');\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/utils/react/pickFromSyntheticEvent.tsx?");
+eval("\r\nvar __assign = (this && this.__assign) || function () {\r\n    __assign = Object.assign || function(t) {\r\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\r\n            s = arguments[i];\r\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\r\n                t[p] = s[p];\r\n        }\r\n        return t;\r\n    };\r\n    return __assign.apply(this, arguments);\r\n};\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.assoc = void 0;\r\nfunction assoc(key, value) {\r\n    return function (obj) {\r\n        var _a;\r\n        return (__assign(__assign({}, obj), (_a = {}, _a[key] = value, _a)));\r\n    };\r\n}\r\nexports.assoc = assoc;\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/utils/js/assoc.ts?");
+
+/***/ }),
+
+/***/ "./src/utils/js/merge.ts":
+/*!*******************************!*\
+  !*** ./src/utils/js/merge.ts ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+eval("\r\nvar __assign = (this && this.__assign) || function () {\r\n    __assign = Object.assign || function(t) {\r\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\r\n            s = arguments[i];\r\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\r\n                t[p] = s[p];\r\n        }\r\n        return t;\r\n    };\r\n    return __assign.apply(this, arguments);\r\n};\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.merge = void 0;\r\nfunction merge(obj) {\r\n    return function (obj2) { return (__assign(__assign({}, obj), obj2)); };\r\n}\r\nexports.merge = merge;\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/utils/js/merge.ts?");
+
+/***/ }),
+
+/***/ "./src/utils/react/generateRandomIndex.ts":
+/*!************************************************!*\
+  !*** ./src/utils/react/generateRandomIndex.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.generateId = exports.assignId = exports.generateRandomString = void 0;\r\nvar assoc_1 = __webpack_require__(/*! ../js/assoc */ \"./src/utils/js/assoc.ts\");\r\n//nanoid\r\nvar generateRandomString = function () { return Math.random().toString(36).substring(2, 15); };\r\nexports.generateRandomString = generateRandomString;\r\nexports.assignId = (0, assoc_1.assoc)('id', (0, exports.generateRandomString)());\r\nvar generateId = function (obj) { return (0, exports.assignId)(obj); };\r\nexports.generateId = generateId;\r\n\n\n//# sourceURL=webpack://reactjscourse/./src/utils/react/generateRandomIndex.ts?");
 
 /***/ }),
 
