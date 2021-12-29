@@ -10,6 +10,7 @@ import { MyHooks, useIsMounted } from './HooksExamples';
 import { GenericList } from './shared/GenericList/GenericList';
 import {assignId, generateId, generateRandomString} from './utils/react/generateRandomIndex';
 import { merge } from './utils/js/merge';
+import { Dropdown } from './shared/Dropdown';
 
 const LIST = [
     {As: 'li' as const, text: 'some'},
@@ -37,13 +38,24 @@ function AppComponent() {
             <Header/>
             <Content>
                 <CardsList/>
-                    <button onClick={handleAdd}>Add Element</button> 
+                <div style={{padding: 20}}>
+                    <br/>
+                    <Dropdown
+                        onClose={() => console.log('closed')} 
+                        onOpen={() => console.log('opened')} 
+                        isOpen={false}
+                        button={<button>Test</button>}>
+                        <CardsList/>
+                    </Dropdown>
+                </div>
+
+                    {/* <button onClick={handleAdd}>Add Element</button> 
 
                     <GenericList list={list.map(merge({onClick: () => {console.log('click')}}))} />
 
                     {/* <button onClick={() => setIsVisible(!isVisible)}>Change Me!</button>  */}
                 {/* <input type="text" onChange={getValue(setTitle)} />
-                {isVisible && <MyHooks title={title} id="11" />} */}
+                {isVisible && <MyHooks title={title} id="11" />} */} 
             </Content>
         </Layout>
     );
