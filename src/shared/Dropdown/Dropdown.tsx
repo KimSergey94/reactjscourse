@@ -1,3 +1,8 @@
+/**
+ * @jest-environment jsdom
+ */
+
+
 import React from 'react';
 import styles from './dropdown.less';
 
@@ -29,7 +34,7 @@ export function Dropdown({ button, children, isOpen, onOpen = NOOP, onClose = NO
             </div>        
             {isDropdownOpen && (
                 <div className={styles.listContainer}>
-                    <div className={styles.list} onClick={() => setIsDropdownOpen(false)}>
+                    <div className={styles.list} onClick={handleOpen}>
                         {children}
                     </div>
                 </div>

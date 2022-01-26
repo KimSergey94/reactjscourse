@@ -1,4 +1,7 @@
 import React from 'react';
+import styles from './text.less';
+import classNames from 'classnames';
+
 
 type TSizes = 28 | 20 | 16 | 14 | 12 | 10;
 
@@ -10,6 +13,7 @@ interface ITextProps{
     tabletSize?: TSizes; 
     desktopSize?: TSizes; 
     color?: EColors;
+    bold?: boolean;
 }
 
 export enum EColors {
@@ -25,9 +29,29 @@ export enum EColors {
     grey66 = 'grey66',
 }
 
-export function Text({As='span', children }:ITextProps){
+export function Text(props:ITextProps){
+    const { 
+        As = 'span', 
+        color= EColors.black, 
+        bold = false,
+        children, 
+        size, 
+        mobileSize, 
+        desktopSize, 
+        tabletSize 
+    } = props;
+
+    const classes = classNames(
+        styles[`s${size}`], 
+        styles[color],
+        {[styles.bold]: bold},
+        { [styles[`m${mobileSize}`]]: mobileSize }, 
+        { [styles[`m${desktopSize}`]]: desktopSize }, 
+        { [styles[`m${tabletSize}`]]: tabletSize },
+    );
+
     return(
-        <As>
+        <As className={classes}>
             {children}
         </As>
     );

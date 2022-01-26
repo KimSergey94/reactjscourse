@@ -11,6 +11,8 @@ import { GenericList } from './shared/GenericList/GenericList';
 import {assignId, generateId, generateRandomString} from './utils/react/generateRandomIndex';
 import { merge } from './utils/js/merge';
 import { Dropdown } from './shared/Dropdown';
+import { EColors, Text } from './shared/Text';
+import { Break } from './shared/Break/Break';
 
 const LIST = [
     {As: 'li' as const, text: 'some'},
@@ -38,6 +40,15 @@ function AppComponent() {
             <Header/>
             <Content>
                 <CardsList/>
+                <br/>
+                <Text size={20} mobileSize={28} color={EColors.green} bold>Label 1</Text>
+                <Break size={8} top/>
+                <Text size={20}>Label 2</Text>
+                <Break size={8} top/>
+                <Text size={20} mobileSize={16}>Label 3</Text>
+
+
+
                 <div style={{padding: 20}}>
                     <br/>
                     <Dropdown
