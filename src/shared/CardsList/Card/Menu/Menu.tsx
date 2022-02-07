@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown } from '../../../Dropdown';
-import { MenuIcon } from '../../../Icons/MenuIcon';
+import { EIconName, Icon } from '../../../Icons/Icon';
 import { EColors, Text } from '../../../Text/Text';
 import styles from './menu.less';
 import { MenuItemsList } from './MenuItemsList';
@@ -13,10 +13,11 @@ export function Menu () {
                 onOpen={() => console.log('opened')} 
                 isOpen={false}
                 button={<button className={styles.menuButton}>
-                            <MenuIcon/>
+                            <Icon size={20} name={EIconName.MenuIcon}/>
                         </button>}>
             <div className={styles.dropdown}>
-                <MenuItemsList postId={'123'} />
+                
+                <MenuItemsList postId={'123'} displayType={'desktop'} />
                 <button className={styles.closeButton}>
                     <Text mobileSize={12} size={14} color={EColors.grey66}>
                         Закрыть
