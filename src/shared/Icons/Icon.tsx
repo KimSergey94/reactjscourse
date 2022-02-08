@@ -7,6 +7,7 @@ import { WarningIcon } from './WarningIcon';
 import classNames from 'classnames';
 import styles from './Icon.less';
 import { ShareIcon } from './ShareIcon';
+import { AnonIcon } from './AnonIcon';
 
 export interface IDetailedIconProps{
     size?: number;
@@ -22,6 +23,8 @@ export enum EIconName {
     SaveIcon = 'SaveIcon',
     ShareIcon = 'ShareIcon',
     WarningIcon = 'WarningIcon',
+    AnonIcon = 'AnonIcon',
+    
 }
 export type TIconSizes = 20 | 18 | 16 | 14 | 12 | 10;
 
@@ -44,6 +47,7 @@ export function Icon(props: IIconProps) {
             props.name === EIconName.ShareIcon ? <ShareIcon size={props.size} /> :
             props.name === EIconName.MenuIcon ? <MenuIcon size={props.size} /> :
             props.name === EIconName.SaveIcon ? <SaveIcon size={props.size} /> :
+            props.name === EIconName.AnonIcon ? <AnonIcon size={props.size} /> :
             props.name === EIconName.WarningIcon ? <WarningIcon size={props.size} /> : '' 
             }
         </div>
