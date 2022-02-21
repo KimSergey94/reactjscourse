@@ -1,4 +1,4 @@
-import React, {useState}  from 'react';
+import React, {useEffect, useState}  from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Layout } from './shared/Layout/Layout';
 import './main.global.less';
@@ -13,6 +13,7 @@ import { merge } from './utils/js/merge';
 import { Dropdown } from './shared/Dropdown';
 import { EColors, Text } from './shared/Text';
 import { Break } from './shared/Break/Break';
+import { useToken } from './hooks/useToken';
 
 const LIST = [
     {As: 'li' as const, text: 'some'},
@@ -28,6 +29,10 @@ function AppComponent() {
     //  const [title, setTitle] = React.useState('');
     //  const [isVisible] = useIsMounted();
 
+    //const url = new URL(window.location.href);
+    const [token] = useToken();
+    //console.log(url.searchParams.get('code'));
+
     const [list, setList] = React.useState(LIST);
     const handleItemClick = (id: string) => {
         setList(list.filter((item) => item.id !== id));
@@ -37,7 +42,7 @@ function AppComponent() {
     }
     return(
         <Layout>
-            <Header/>
+            <Header token={token}/>
             <Content>
                 <CardsList/>
                 <br/>

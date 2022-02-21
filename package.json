@@ -18,6 +18,7 @@
     "@types/classnames": "^2.3.1",
     "@types/enzyme": "^3.10.11",
     "@types/jest": "^27.0.2",
+    "axios": "^0.26.0",
     "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
