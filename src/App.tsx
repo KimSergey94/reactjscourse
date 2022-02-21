@@ -15,6 +15,7 @@ import { EColors, Text } from './shared/Text';
 import { Break } from './shared/Break/Break';
 import { useToken } from './hooks/useToken';
 import { tokenContext } from './shared/context/tokenContext';
+import { UserContextProvider } from './shared/context/userContext';
 
 const LIST = [
     {As: 'li' as const, text: 'some'},
@@ -33,7 +34,6 @@ function AppComponent() {
     //const url = new URL(window.location.href);
     const [token] = useToken();
     //console.log(url.searchParams.get('code'));
-    const {Provider} = tokenContext;
 
     const [list, setList] = React.useState(LIST);
     const handleItemClick = (id: string) => {
@@ -44,41 +44,43 @@ function AppComponent() {
     }
 
     return(
-        <Provider value={token}>
-              <Layout>
-                <Header/>
-                <Content>
-                    <CardsList/>
-                    <br/>
-                    <Text size={20} mobileSize={28} color={EColors.green} bold>Label 1</Text>
-                    <Break size={8} top/>
-                    <Text size={20}>Label 2</Text>
-                    <Break size={8} top/>
-                    <Text size={20} mobileSize={16}>Label 3</Text>
-
-
-
-                    <div style={{padding: 20}}>
+        <tokenContext.Provider value={token}>
+            <UserContextProvider>
+                <Layout>
+                    <Header/>
+                    <Content>
+                        <CardsList/>
                         <br/>
-                        <Dropdown
-                            onClose={() => console.log('closed')} 
-                            onOpen={() => console.log('opened')} 
-                            isOpen={false}
-                            button={<button>Test</button>}>
-                            <CardsList/>
-                        </Dropdown>
-                    </div>
+                        <Text size={20} mobileSize={28} color={EColors.green} bold>Label 1</Text>
+                        <Break size={8} top/>
+                        <Text size={20}>Label 2</Text>
+                        <Break size={8} top/>
+                        <Text size={20} mobileSize={16}>Label 3</Text>
 
-                        {/* <button onClick={handleAdd}>Add Element</button> 
 
-                        <GenericList list={list.map(merge({onClick: () => {console.log('click')}}))} />
 
-                        {/* <button onClick={() => setIsVisible(!isVisible)}>Change Me!</button>  */}
-                    {/* <input type="text" onChange={getValue(setTitle)} />
-                    {isVisible && <MyHooks title={title} id="11" />} */} 
-                </Content>
-            </Layout>
-        </Provider>
+                        <div style={{padding: 20}}>
+                            <br/>
+                            <Dropdown
+                                onClose={() => console.log('closed')} 
+                                onOpen={() => console.log('opened')} 
+                                isOpen={false}
+                                button={<button>Test</button>}>
+                                <CardsList/>
+                            </Dropdown>
+                        </div>
+
+                            {/* <button onClick={handleAdd}>Add Element</button> 
+
+                            <GenericList list={list.map(merge({onClick: () => {console.log('click')}}))} />
+
+                            {/* <button onClick={() => setIsVisible(!isVisible)}>Change Me!</button>  */}
+                        {/* <input type="text" onChange={getValue(setTitle)} />
+                        {isVisible && <MyHooks title={title} id="11" />} */} 
+                    </Content>
+                </Layout>
+            </UserContextProvider>
+        </tokenContext.Provider>
       
     );
 }
