@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 
-
 import React from 'react';
 import styles from './dropdown.less';
 
@@ -22,16 +21,14 @@ export function Dropdown({ button, children, isOpen, onOpen = NOOP, onClose = NO
     React.useEffect(()=> isDropdownOpen ? onOpen() : onClose(), [isDropdownOpen])
 
     const handleOpen = () => {
-        //if(isOpen === undefined){
-            setIsDropdownOpen(!isDropdownOpen)
-        //}
+        setIsDropdownOpen(!isDropdownOpen)
     }
 
     return (
         <div className={styles.container}>
             <div onClick={handleOpen}>
                 { button }
-            </div>        
+            </div>       
             {isDropdownOpen && (
                 <div className={styles.listContainer}>
                     <div className={styles.list} onClick={handleOpen}>

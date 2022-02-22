@@ -1,29 +1,27 @@
 import React from 'react';
-import { CommentIcon } from '../../../../Icons/CommentIcon';
-import { WarningIcon } from '../../../../Icons/WarningIcon';
 import styles from './menuitemslist.less';
 import {EColors, Text} from '../../../../Text/Text';
 import { EIconName, Icon } from '../../../../Icons/Icon';
+import { TDisplayType } from '..';
 
 interface IMenuItemsListProps{
     postId: string;
-    displayType: TMenuItemsList;
+    displayType: TDisplayType;
 }
-type TMenuItemsList = 'mobile' | 'desktop';
 export function MenuItemsList(props: IMenuItemsListProps) {
-    const [displayType, setDisplayType] = React.useState(props.displayType);
+    // const [displayType, setDisplayType] = React.useState(props.displayType);
 
     return(
         <ul className={styles.menuItemsList}>
 
-            {displayType == 'mobile'  && (
+            {props.displayType == 'mobile'  && (
                 <li className={styles.menuItem} onClick={() => console.log(props.postId)} >
                     <Icon size={14} name={EIconName.HideIcon}/>
                     <Text size={12} color={EColors.grey99}>Скрыть</Text>
                 </li>
                 )
             }
-            {displayType == 'desktop' && (
+            {props.displayType == 'desktop' && (
                 <>
                     <li className={styles.menuItem} onClick={() => console.log(props.postId)} >
                         <Icon size={14} name={EIconName.CommentIcon}/>

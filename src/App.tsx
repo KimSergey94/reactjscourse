@@ -1,21 +1,19 @@
-import React, {useEffect, useState}  from 'react';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Layout } from './shared/Layout/Layout';
 import './main.global.less';
 import { Header } from './shared/Header/Header';
 import { Content } from './shared/Content/Content';
 import { CardsList } from './shared/CardsList/CardsList';
-import { getValue } from './utils/react/pickFromSyntheticEvent';
-import { MyHooks, useIsMounted } from './HooksExamples';
-import { GenericList } from './shared/GenericList/GenericList';
-import {assignId, generateId, generateRandomString} from './utils/react/generateRandomIndex';
-import { merge } from './utils/js/merge';
+import {assignId} from './utils/react/generateRandomIndex';
 import { Dropdown } from './shared/Dropdown';
 import { EColors, Text } from './shared/Text';
 import { Break } from './shared/Break/Break';
 import { useToken } from './hooks/useToken';
 import { tokenContext } from './shared/context/tokenContext';
+import { postsContext } from './shared/context/postsContext';
 import { UserContextProvider } from './shared/context/userContext';
+import { usePostsData } from './hooks/usePostsData';
 
 const LIST = [
     {As: 'li' as const, text: 'some'},
@@ -26,30 +24,18 @@ const LIST = [
 
 
 function AppComponent() {
-    //const [isVisible, setIsVisible] = React.useState(true);
-    
-    //  const [title, setTitle] = React.useState('');
-    //  const [isVisible] = useIsMounted();
-
-    //const url = new URL(window.location.href);
     const [token] = useToken();
-    //console.log(url.searchParams.get('code'));
-
-    const [list, setList] = React.useState(LIST);
-    const handleItemClick = (id: string) => {
-        setList(list.filter((item) => item.id !== id));
-    }
-    const handleAdd = () => {
-        setList(list.concat((generateId({text:generateRandomString(), As: 'li' as const}))));
-    }
-
+    const [posts] = usePostsData();
     return(
         <tokenContext.Provider value={token}>
             <UserContextProvider>
                 <Layout>
                     <Header/>
                     <Content>
-                        <CardsList/>
+                        <postsContext.Provider value={posts}>
+                            <CardsList/>
+                        </postsContext.Provider>
+
                         <br/>
                         <Text size={20} mobileSize={28} color={EColors.green} bold>Label 1</Text>
                         <Break size={8} top/>
@@ -57,31 +43,20 @@ function AppComponent() {
                         <Break size={8} top/>
                         <Text size={20} mobileSize={16}>Label 3</Text>
 
-
-
                         <div style={{padding: 20}}>
                             <br/>
                             <Dropdown
                                 onClose={() => console.log('closed')} 
                                 onOpen={() => console.log('opened')} 
-                                isOpen={false}
+                                isOpen={true}
                                 button={<button>Test</button>}>
                                 <CardsList/>
                             </Dropdown>
                         </div>
-
-                            {/* <button onClick={handleAdd}>Add Element</button> 
-
-                            <GenericList list={list.map(merge({onClick: () => {console.log('click')}}))} />
-
-                            {/* <button onClick={() => setIsVisible(!isVisible)}>Change Me!</button>  */}
-                        {/* <input type="text" onChange={getValue(setTitle)} />
-                        {isVisible && <MyHooks title={title} id="11" />} */} 
                     </Content>
                 </Layout>
             </UserContextProvider>
         </tokenContext.Provider>
-      
     );
 }
 

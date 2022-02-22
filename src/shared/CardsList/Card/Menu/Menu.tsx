@@ -5,7 +5,12 @@ import { EColors, Text } from '../../../Text/Text';
 import styles from './menu.less';
 import { MenuItemsList } from './MenuItemsList';
 
-export function Menu () {
+export interface IMenuProps{
+    displayType: TDisplayType;
+}
+export type TDisplayType = 'mobile' | 'desktop';
+
+export function Menu (props: IMenuProps) {
     return (
         <div className={styles.menu}>
             <Dropdown
@@ -15,9 +20,9 @@ export function Menu () {
                 button={<button className={styles.menuButton}>
                             <Icon size={20} name={EIconName.MenuIcon}/>
                         </button>}>
+
             <div className={styles.dropdown}>
-                
-                <MenuItemsList postId={'123'} displayType={'desktop'} />
+                <MenuItemsList postId={'123'} displayType={props.displayType} />
                 <button className={styles.closeButton}>
                     <Text mobileSize={12} size={14} color={EColors.grey66}>
                         Закрыть
