@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './textcontent.less';
+import { Title } from './Title';
 
 export interface ITextContentProps{
     displayName: string;
@@ -17,9 +18,7 @@ export function TextContent(props:ITextContentProps){
             </div>
             <span className={styles.createdAt}><span className={styles.publishedLabel}>опубликовано </span>{props.postedTimeAgo}</span>
         </div>
-        <h2 className={styles.title}>
-            <a href="#post-url" className={styles.postLink}>{props.title}</a>
-        </h2>
+        <Title/>
     </div>
     );
 }
