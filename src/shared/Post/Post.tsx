@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { CommentForm } from '../CommentForm';
 import styles from './post.less';
 
 interface IPost{
@@ -34,6 +35,8 @@ export function Post(props: IPost){
                 <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное, как фуфывйцу</p>
                 <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное, как фуфывйцу</p>
             </div>
+
+            <CommentForm/>  
         </div>
     ), node);
 }

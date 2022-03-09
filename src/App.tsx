@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Layout } from './shared/Layout/Layout';
 import './main.global.less';
@@ -14,6 +14,8 @@ import { tokenContext } from './shared/context/tokenContext';
 import { postsContext } from './shared/context/postsContext';
 import { UserContextProvider } from './shared/context/userContext';
 import { usePostsData } from './hooks/usePostsData';
+import { commentContext } from './shared/context/commentContext';
+
 
 const LIST = [
     {As: 'li' as const, text: 'some'},
@@ -24,39 +26,43 @@ const LIST = [
 
 
 function AppComponent() {
+    const [commentValue, setCommentValue] = useState('');
+    const CommentProvider = commentContext.Provider;
     const [token] = useToken();
     const [posts] = usePostsData();
     return(
-        <tokenContext.Provider value={token}>
-            <UserContextProvider>
-                <Layout>
-                    <Header/>
-                    <Content>
-                        <postsContext.Provider value={posts}>
-                            <CardsList/>
-                        </postsContext.Provider>
-
-                        <br/>
-                        <Text size={20} mobileSize={28} color={EColors.green} bold>Label 1</Text>
-                        <Break size={8} top/>
-                        <Text size={20}>Label 2</Text>
-                        <Break size={8} top/>
-                        <Text size={20} mobileSize={16}>Label 3</Text>
-
-                        <div style={{padding: 20}}>
-                            <br/>
-                            <Dropdown
-                                onClose={() => console.log('closed')} 
-                                onOpen={() => console.log('opened')} 
-                                isOpen={true}
-                                button={<button>Test</button>}>
+        <CommentProvider value={{value: commentValue, onChange: setCommentValue}}>
+            <tokenContext.Provider value={token}>
+                <UserContextProvider>
+                    <Layout>
+                        <Header/>
+                        <Content>
+                            <postsContext.Provider value={posts}>
                                 <CardsList/>
-                            </Dropdown>
-                        </div>
-                    </Content>
-                </Layout>
-            </UserContextProvider>
-        </tokenContext.Provider>
+                            </postsContext.Provider>
+
+                            <br/>
+                            <Text size={20} mobileSize={28} color={EColors.green} bold>Label 1</Text>
+                            <Break size={8} top/>
+                            <Text size={20}>Label 2</Text>
+                            <Break size={8} top/>
+                            <Text size={20} mobileSize={16}>Label 3</Text>
+
+                            <div style={{padding: 20}}>
+                                <br/>
+                                <Dropdown
+                                    onClose={() => console.log('closed')} 
+                                    onOpen={() => console.log('opened')} 
+                                    isOpen={true}
+                                    button={<button>Test</button>}>
+                                    <CardsList/>
+                                </Dropdown>
+                            </div>
+                        </Content>
+                    </Layout>
+                </UserContextProvider>
+            </tokenContext.Provider>
+        </CommentProvider>
     );
 }
 
