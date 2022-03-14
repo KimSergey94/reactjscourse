@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Post } from '../../../../Post';
 import styles from './title.less';
 
 export function Title() {
@@ -9,11 +8,11 @@ export function Title() {
             <a href='#post-url' className={styles.postLink} onClick={()=> setIsModalOpened(true)}>
                 Следует отметить, что новая модель организационной деятельности Следует отметить, что новая модель организационной деятельности 
             </a>
-
+{/* 
             {isModalOpened &&(
                 <div><Post 
                 onClose={()=>{ setIsModalOpened(false); }}/></div>                
-            )}
+            )} */}
         </h2>
     );
 }

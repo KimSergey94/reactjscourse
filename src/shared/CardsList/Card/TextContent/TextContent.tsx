@@ -1,12 +1,15 @@
 import React from 'react';
+import { Post } from '../../../Post';
 import styles from './textcontent.less';
-import { Title } from './Title';
 
 export interface ITextContentProps{
     displayName: string;
     postedTimeAgo: string;
     title: string;
     imgLink: string;
+    cardId: number,
+    isCommentModalOpened: boolean,
+    handleOpenCommentModal: () => void
 }
 export function TextContent(props:ITextContentProps){
     return (
@@ -18,7 +21,14 @@ export function TextContent(props:ITextContentProps){
             </div>
             <span className={styles.createdAt}><span className={styles.publishedLabel}>опубликовано </span>{props.postedTimeAgo}</span>
         </div>
-        <Title/>
+        <h2 className={styles.title}>
+            <a href="#post-url" className={styles.postLink} onClick={props.handleOpenCommentModal}>
+                {props.title}
+            </a>
+            {props.isCommentModalOpened && (
+                <Post author={props.displayName} title={props.title} cardId={props.cardId} onClose={props.handleOpenCommentModal}/>
+            )}
+      </h2>
     </div>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { displayTypeContext } from "../../context/displayTypeContext";
 import styles from './card.less';
 import { Controls, IControlsProps } from "./Controls/Controls";
@@ -15,10 +15,13 @@ interface ICardProps{
 }
 export function Card(props: ICardProps){
     const displayType = useContext(displayTypeContext);
-
+    const [isModalOpened, setIsModalOpened] = useState(false)
+    const handleClickModal = () => {
+      setIsModalOpened(!isModalOpened)
+    }
     return(
         <li className={styles.card} id={`card${props.cardId}`}>
-            <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} />
+            <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} isCommentModalOpened={isModalOpened} handleOpenCommentModal={handleClickModal} cardId={props.cardId}/>
             <Preview imgSrc={props.preview.imgSrc}/>
             <Menu displayType={displayType.displayType} cardId={props.cardId}/>
             <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />

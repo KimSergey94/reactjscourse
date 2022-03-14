@@ -4,7 +4,13 @@ import { CommentForm } from '../CommentForm';
 import styles from './post.less';
 
 interface IPost{
-    onClose?: ()=>void;
+    title: string,
+    author: string,
+    category?: string,
+    description?: string,
+    onClose?: ()=> void,
+    cardId: number,
+    avatar?: string,
 }
 export function Post(props: IPost){
     const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +28,7 @@ export function Post(props: IPost){
         }
     }, []);
 
-
+    //const node = document.getElementById(`card${props.cardId}`);
     const node = document.querySelector('#modal_root');
     if(!node) return null
 
