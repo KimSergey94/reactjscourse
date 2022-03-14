@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { displayTypeContext } from "../../context/displayTypeContext";
 import styles from './card.less';
 import { Controls, IControlsProps } from "./Controls/Controls";
 import { IMenuProps, Menu } from "./Menu/Menu";
@@ -12,11 +13,13 @@ interface ICardProps{
     controls: IControlsProps;
 }
 export function Card(props: ICardProps){
+    const displayType = useContext(displayTypeContext);
+
     return(
         <li className={styles.card}>
             <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} />
             <Preview imgSrc={props.preview.imgSrc}/>
-            <Menu displayType="desktop"/>
+            <Menu displayType={displayType.displayType}/>
             <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />
         </li>
     );
