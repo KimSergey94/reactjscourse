@@ -10,6 +10,7 @@ import styles from './dropdown.less';
 import {EColors, Text} from '../Text/Text';
 import ReactDOM from 'react-dom';
 
+
 interface IDropdownProps {
     isOpen?: boolean;
     onOpen?: () => void;
@@ -17,26 +18,29 @@ interface IDropdownProps {
     cardId: number;
 }
 
-export function Dropdown({ cardId }: IDropdownProps) {
+const NOOP = ()=> {};
+export function Dropdown({ isOpen, onOpen=NOOP, onClose=NOOP, cardId }: IDropdownProps) {
     const displayType = useContext(displayTypeContext);
     // React.useEffect(()=> setIsDropdownOpen(isOpen), [isOpen])
     // React.useEffect(()=> isDropdownOpen ? onOpen() : onClose(), [isDropdownOpen])
 
-    const node = document.querySelector(`#dropdown${cardId}`);
+    const node = document.querySelector(`#card${cardId}`);
     if(!node) return null;
 
     return ReactDOM.createPortal(
             <div className={styles.listContainer}>
+
                 <div className={styles.list}>
-                <div className={styles.dropdown}>
-                    <MenuItemsList cardId={cardId} displayType={displayType.displayType} />
-                    <button className={styles.closeButton}>
-                        <Text mobileSize={12} size={14} color={EColors.grey66}>
-                            Закрыть
-                        </Text>
-                    </button>
+                    <div className={styles.dropdown}>
+                        <MenuItemsList cardId={cardId} displayType={displayType.displayType} />
+                        <button className={styles.closeButton}>
+                            <Text mobileSize={12} size={14} color={EColors.grey66}>
+                                Закрыть
+                            </Text>
+                        </button>
+                    </div>
                 </div>
-                </div>
+                
             </div>
       , node
     );
