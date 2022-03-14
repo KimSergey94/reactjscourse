@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { displayTypeContext, TDisplayType } from '../../../context/displayTypeContext';
+import React from 'react';
 import { Dropdown } from '../../../Dropdown';
 import { EIconName, Icon } from '../../../Icons/Icon';
 import { EColors, Text } from '../../../Text/Text';
@@ -9,6 +8,7 @@ import { MenuItemsList } from './MenuItemsList';
 export interface IMenuProps{
     displayType: TDisplayType;
 }
+export type TDisplayType = 'mobile' | 'desktop';
 
 export function Menu (props: IMenuProps) {
     return (

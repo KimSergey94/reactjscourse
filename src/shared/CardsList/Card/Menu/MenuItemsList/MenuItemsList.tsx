@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './menuitemslist.less';
 import {EColors, Text} from '../../../../Text/Text';
 import { EIconName, Icon } from '../../../../Icons/Icon';
-import { TDisplayType } from '../../../../context/displayTypeContext';
+import { TDisplayType } from '..';
 
 interface IMenuItemsListProps{
     postId: string;
