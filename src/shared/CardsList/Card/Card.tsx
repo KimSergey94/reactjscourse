@@ -11,7 +11,6 @@ interface ICardProps{
     preview: IPreviewProps;
     // menuProps: IMenuProps;
     controls: IControlsProps;
-    cardId: number;
 }
 export function Card(props: ICardProps){
     const displayType = useContext(displayTypeContext);
@@ -20,7 +19,7 @@ export function Card(props: ICardProps){
         <li className={styles.card}>
             <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} />
             <Preview imgSrc={props.preview.imgSrc}/>
-            <Menu displayType={displayType.displayType} cardId={props.cardId} />
+            <Menu displayType={displayType.displayType}/>
             <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />
         </li>
     );
