@@ -8,7 +8,7 @@ export function CardsList() {
     
     return (
         <ul className={styles.cardsList}>
-            {posts?.map((x) => <Card key={posts.indexOf(x)} content={x.content} preview={x.preview} controls={x.controls} />)}
+            {posts?.map((x) => <Card key={posts.indexOf(x)} content={x.content} preview={x.preview} controls={x.controls} cardId={posts.indexOf(x)}/>)}
         </ul>
     );
 }

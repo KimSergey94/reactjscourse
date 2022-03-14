@@ -11,15 +11,16 @@ interface ICardProps{
     preview: IPreviewProps;
     // menuProps: IMenuProps;
     controls: IControlsProps;
+    cardId: number;
 }
 export function Card(props: ICardProps){
     const displayType = useContext(displayTypeContext);
 
     return(
-        <li className={styles.card}>
+        <li className={styles.card} id={`card${props.cardId}`}>
             <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} />
             <Preview imgSrc={props.preview.imgSrc}/>
-            <Menu displayType={displayType.displayType}/>
+            <Menu displayType={displayType.displayType} cardId={props.cardId}/>
             <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />
         </li>
     );

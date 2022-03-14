@@ -8,6 +8,7 @@ import { MenuItemsList } from './MenuItemsList';
 
 export interface IMenuProps{
     displayType: TDisplayType;
+    cardId: number;
 }
 
 export function Menu (props: IMenuProps) {
@@ -19,7 +20,8 @@ export function Menu (props: IMenuProps) {
                 isOpen={false}
                 button={<button className={styles.menuButton}>
                             <Icon size={20} name={EIconName.MenuIcon}/>
-                        </button>}>
+                        </button>}
+                cardId={props.cardId}>
 
             <div className={styles.dropdown}>
                 <MenuItemsList postId={'123'} displayType={props.displayType} />
