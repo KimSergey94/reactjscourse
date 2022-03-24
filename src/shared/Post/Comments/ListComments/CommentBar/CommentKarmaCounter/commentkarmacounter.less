@@ -1,0 +1,47 @@
+.karmaCounter>*+* {
+  padding: 0 0 0 4px;
+}
+
+.karmaCounter {
+  display: flex;
+  
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.karmaValue {
+  color: var(--greyC4)
+}
+
+@media all and (min-width:1024px) {
+  .karmaCounter {
+    flex-direction: column;
+    position: absolute;
+    top: -9px;
+    left: -10px;
+    background-color: var(--white);
+    padding-bottom: 5px;
+  }
+  .karmaValue{
+    font-size: 10px;
+    line-height: 10px;
+  }
+  .karmaCounter>*+* {
+    padding: 0px;
+  }
+}
+
+@media all and (min-width:1540px) {
+  .karmaCounter>button.up:hover path {
+    fill: var(--green)
+  }
+  .karmaCounter>button.down:hover path {
+    fill: var(--orange)
+  }
+  .up,
+  .down {
+    position: relative;
+    z-index: 2;
+  }
+}

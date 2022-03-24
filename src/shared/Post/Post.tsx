@@ -1,7 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { CommentForm } from '../CommentForm';
+import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter';
+import { ReturnArrow } from '../Icons/ReturnArrow';
+import { Comments } from './Comments';
 import styles from './post.less';
+import { PostCommentContent } from './PostContent';
+import { PostControls } from './PostControls';
+import { ButtonComment } from './PostControls/ButtonComment';
+import { ButtonPostComplain } from './PostControls/ButtonPostComplain';
+import { ButtonPostHide } from './PostControls/ButtonPostHide';
+import { ButtonPostSave } from './PostControls/ButtonPostSave';
+import { ButtonPostShare } from './PostControls/ButtonPostShare';
+import { PostHeader } from './PostHeader';
 
 interface IPost{
     title: string,
@@ -33,16 +43,42 @@ export function Post(props: IPost){
     if(!node) return null
 
     return ReactDOM.createPortal((
-        <div className={styles.modal} ref={ref}>
-            <h2>Следует отметить, что новая модель организационной деятельности поможет</h2>
-
-            <div className={styles.content}>
-                <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное, как фуфывйцу</p>
-                <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное, как фуфывйцу</p>
-                <p>Есть над чем задуматься: тщательные исследования конкурентов представляют собой не что иное, как фуфывйцу</p>
-            </div>
-
-            <CommentForm/>  
-        </div>
-    ), node);
-}
+        <div id={'post'} ref={ref} className={styles.post}>
+        <button onClick={props.onClose} className={styles.buttonReturn}><ReturnArrow/></button>
+       <div>
+         <PostHeader cardId={props.cardId} idContainerResultMenu={'post'} />
+       </div>
+       <div className={styles.textContent}>
+       <div className={styles.metaData}>
+         <div className={styles.userLink}>
+           <img className={styles.avatar} src="https://cdn.dribbble.com/users/1210339/screenshots/15111625/media/e92f64535c708861a43715f61efe3a97.jpg" alt="avatar" />
+           <a href="#user-url" className={styles.username}>{props.author}</a>
+         </div>
+         <span className={styles.createdAt}>
+           <span className={styles.publishedLabel}>опубликовано</span>
+           4 часа назад</span>
+           <span className={styles.category}>{props.category}</span>
+       </div>
+       <h2 className={styles.title}>
+           {props.title}
+       </h2>
+       </div>
+     <PostCommentContent />
+     <PostControls>
+       <div className={styles.karma}>
+       <KarmaCounter />
+       </div>
+       <ButtonComment />
+       <div className={styles.buttonGroup}>
+       <ButtonPostShare />
+       <ButtonPostHide />
+       <ButtonPostSave />
+       <ButtonPostComplain />
+       </div>
+       <div className={styles.textStatistic}>{67} %<span className={styles.hideMobile}>проголосовали</span></div>
+       </PostControls>
+     <Comments />
+     </div>
+   ), node);
+ }
+ 

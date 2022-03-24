@@ -14,7 +14,6 @@ interface ICardProps{
     cardId: number;
 }
 export function Card(props: ICardProps){
-    const displayType = useContext(displayTypeContext);
     const [isModalOpened, setIsModalOpened] = useState(false)
     const handleClickModal = () => {
       setIsModalOpened(!isModalOpened)
@@ -23,7 +22,7 @@ export function Card(props: ICardProps){
         <li className={styles.card} id={`card${props.cardId}`}>
             <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} isCommentModalOpened={isModalOpened} handleOpenCommentModal={handleClickModal} cardId={props.cardId}/>
             <Preview imgSrc={props.preview.imgSrc}/>
-            <Menu displayType={displayType.displayType} cardId={props.cardId}/>
+            <Menu cardId={props.cardId}/>
             <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />
         </li>
     );

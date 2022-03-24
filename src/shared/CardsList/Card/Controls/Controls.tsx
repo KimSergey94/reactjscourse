@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './controls.less';
+import { KarmaCounter } from './KarmaCounter';
 
 export interface IControlsProps{
     karmaValue: string;
@@ -8,20 +9,7 @@ export interface IControlsProps{
 export function Controls(props: IControlsProps){
     return (
         <div className={styles.controls}>
-            <div className={styles.karmaCounter}>
-                <button className={styles.up}>
-                <svg width="19" height="10" viewBox="0 0 19 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9.5 0L0 10H19L9.5 0Z" fill="#D9D9D9"/>
-                </svg>
-                </button>
-                <span className={styles.karmaValue}>{props.karmaValue}</span>
-
-                <button className={styles.down}>
-                <svg className={styles.down} width="19" height="10" viewBox="0 0 19 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.5 0L0 10H19L9.5 0Z" fill="#D9D9D9"/>
-                </svg>
-                </button>
-            </div>
+            <KarmaCounter />
 
             <button className={styles.commentsButton}>
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

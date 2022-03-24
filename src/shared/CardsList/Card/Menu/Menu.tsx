@@ -7,7 +7,6 @@ import styles from './menu.less';
 import { MenuItemsList } from './MenuItemsList';
 
 export interface IMenuProps{
-    displayType: TDisplayType;
     cardId: number;
 }
 
@@ -24,7 +23,7 @@ export function Menu (props: IMenuProps) {
                 cardId={props.cardId}>
 
             <div className={styles.dropdown}>
-                <MenuItemsList postId={'123'} displayType={props.displayType} />
+                <MenuItemsList postId={'123'} />
                 <button className={styles.closeButton}>
                     <Text mobileSize={12} size={14} color={EColors.grey66}>
                         Закрыть

@@ -1,0 +1,34 @@
+.karmaCounter>*+* {
+  padding: 0 0 0 4px;
+}
+
+.karmaCounter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.karmaValue {
+  color: var(--greyC4)
+}
+
+@media all and (min-width:1024px) {
+  .karmaCounter {
+    flex-direction: column;
+  }
+}
+
+@media all and (min-width:1540px) {
+  .karmaCounter>button.up:hover path {
+    fill: var(--green)
+  }
+  .karmaCounter>button.down:hover path {
+    fill: var(--orange)
+  }
+  .up,
+  .down {
+    position: relative;
+    z-index: 2;
+  }
+}
