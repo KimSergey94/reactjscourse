@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, updateComment } from '../../../store';
 import { generateId, generateRandomString } from '../../../utils/react/generateRandomIndex';
-import { commentContext } from '../../context/commentContext';
 import { userContext } from '../../context/userContext';
 import styles from './comments.less';
 import { FormComments } from './FormComments';
@@ -16,13 +17,13 @@ const listComments = [
 ].map(generateId)
 
 export function Comments() {
-  const {value, onChange} = useContext(commentContext);
+  const value = useSelector<RootState, string>(state => state.commentText);
+  const dispatch = useDispatch();
+  function onChange(event: ChangeEvent<HTMLTextAreaElement>){
+      dispatch(updateComment(event.target.value));
+  }
   const {name, iconImg } = useContext(userContext);
   const [list, setList] = useState(listComments);
-  function handleChangeInput(e: ChangeEvent<HTMLTextAreaElement>) {
-    e.preventDefault()
-    onChange(`${e.target.value}`);
-  }; 
   function handleSubmitForm (e: FormEvent) {
     e.preventDefault();
     if (!name) {
@@ -31,13 +32,13 @@ export function Comments() {
     }
     setList([...list, { autor: name , text: value , category: 'Разработчик', avatarSrc: iconImg ? iconImg : '', id: generateRandomString()
   }] );
-  onChange('')
+  //onChange('')
   }
   
   return (
     < div className={styles.container}>
       <SortComments />
-      <FormComments name={name} handleSubmit={handleSubmitForm} handleChange={handleChangeInput} valueInput={value} />
+      <FormComments name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} />
       <ListComments list={list} />
     </div>
   );

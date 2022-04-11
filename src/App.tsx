@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Layout } from './shared/Layout/Layout';
 import './main.global.less';
@@ -11,11 +11,14 @@ import { tokenContext } from './shared/context/tokenContext';
 import { postsContext } from './shared/context/postsContext';
 import { UserContextProvider } from './shared/context/userContext';
 import { usePostsData } from './hooks/usePostsData';
-import { commentContext } from './shared/context/commentContext';
 import { displayTypeContext, TDisplayType } from './shared/context/displayTypeContext';
 import { useDisplayType } from './hooks/useDisplayType';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { rootReducer } from './store';
 
-
+export const store = createStore(rootReducer, composeWithDevTools());
 const LIST = [
     {As: 'li' as const, text: 'some'},
     {As: 'li' as const, text: 'some2'},
@@ -25,29 +28,28 @@ const LIST = [
 
 
 function AppComponent() {
-    const [commentValue, setCommentValue] = useState('');
-    const CommentProvider = commentContext.Provider;
+    const TokenProvider = tokenContext.Provider;
     const [token] = useToken();
     const [posts] = usePostsData();
     const [displayType] = useDisplayType();
 
     return(
-        <CommentProvider value={{value: commentValue, onChange: setCommentValue}}>
-            <tokenContext.Provider value={token}>
-                <UserContextProvider>
-                <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
-                    <Layout>
-                        <Header/>
-                        <Content>
-                            <postsContext.Provider value={posts}>
-                                <CardsList/>
-                            </postsContext.Provider>
-                        </Content>
-                    </Layout>
-                </displayTypeContext.Provider>
-                </UserContextProvider>
-            </tokenContext.Provider>
-        </CommentProvider>
+    <Provider store={store}>
+        <TokenProvider value={token}>
+            <UserContextProvider>
+            <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
+                <Layout>
+                    <Header/>
+                    <Content>
+                        <postsContext.Provider value={posts}>
+                            <CardsList/>
+                        </postsContext.Provider>
+                    </Content>
+                </Layout>
+            </displayTypeContext.Provider>
+            </UserContextProvider>
+        </TokenProvider>
+    </Provider>
     );
 }
 
