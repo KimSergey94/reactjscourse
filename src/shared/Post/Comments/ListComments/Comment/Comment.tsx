@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, ReactNode, useContext, useEffect, useRef
 import { generateRandomString } from '../../../../../utils/react/generateRandomIndex';
 import { userContext } from '../../../../context/userContext';
 import { IconAnon } from '../../../../Icons/IconAnon';
-import { FormComments } from '../../FormComments';
+import { FormCommentsContainer } from '../../FormCommentsContainer';
 import { CommentBar } from '../CommentBar';
 import styles from './comment.less';
 interface IComment {
@@ -90,7 +90,8 @@ function handleClickedOut () {
     <div className={styles.text}>{commentText}</div>
     <CommentBar handleClickComment={handleClickComment}/>
     {isVisibleForm && (
-      <FormComments handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange}/>
+      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange} />
+      // <FormComments handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange}/>
     )}
     <ul className={styles.list}>
     {subComments.map(post => (

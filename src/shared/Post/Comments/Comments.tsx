@@ -4,7 +4,7 @@ import { RootState, updateComment } from '../../../store';
 import { generateId, generateRandomString } from '../../../utils/react/generateRandomIndex';
 import { userContext } from '../../context/userContext';
 import styles from './comments.less';
-import { FormComments } from './FormComments';
+import { FormCommentsContainer } from './FormCommentsContainer';
 import { ListComments } from './ListComments';
 import { SortComments } from './SortComments';
 const listComments = [
@@ -38,7 +38,8 @@ export function Comments() {
   return (
     < div className={styles.container}>
       <SortComments />
-      <FormComments name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} />
+      <FormCommentsContainer name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} />
+      {/* <FormComments name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} /> */}
       <ListComments list={list} />
     </div>
   );

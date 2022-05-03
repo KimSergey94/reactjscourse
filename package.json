@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:dev": "env NODE_ENV=development webpack --config webpack.config.js",
-    "build:prod": "env NODE_ENV=production webpack --config webpack.config.js",
+    "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev": "cross-env NODE_ENV=development CLIENT_ID=vVMpMj5mCEsVK48LwY5AUw CLIENT_PWD=BtOchjoAZsJGcCuOjAtbIt-7Aw1Mtg node ./bin/dev.js",
     "test": "npx jest ---watch"
   },
