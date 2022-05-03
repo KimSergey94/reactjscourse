@@ -28,15 +28,13 @@ const LIST = [
 
 
 function AppComponent() {
-    const TokenProvider = tokenContext.Provider;
-    const [token] = useToken();
+    //const [token] = useToken();
     const [posts] = usePostsData();
     const [displayType] = useDisplayType();
 
     return(
     <Provider store={store}>
-        <TokenProvider value={token}>
-            <UserContextProvider>
+        <UserContextProvider>
             <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
                 <Layout>
                     <Header/>
@@ -47,8 +45,7 @@ function AppComponent() {
                     </Content>
                 </Layout>
             </displayTypeContext.Provider>
-            </UserContextProvider>
-        </TokenProvider>
+        </UserContextProvider>
     </Provider>
     );
 }
