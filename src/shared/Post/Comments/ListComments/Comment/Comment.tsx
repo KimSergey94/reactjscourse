@@ -56,13 +56,13 @@ function handleClickedOut () {
   const [subComments, setSubCommentList] = useState(subCommentList);
   const [isVisibleForm , setVisibleForm] = useState(false);
   const [value , setValue] = useState(`${author}, `);
-  const {name, iconImg } = useContext(userContext);
+  const {data, loading } = useContext(userContext);
   function submitForm (e: FormEvent) {
     e.preventDefault();
-    if(!name) {
+    if(!data?.name) {
       console.log('Нужно автоизоваться')
       return}
-    setSubCommentList([...subComments, { autor: name? name : 'Неизвестный' , text: value , category: 'Разработчик', avatarSrc: iconImg ? iconImg : '', id: generateRandomString()
+    setSubCommentList([...subComments, { autor: data?.name? data?.name : 'Неизвестный' , text: value , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString()
   } ])
   setValue('');
   setVisibleForm(false)

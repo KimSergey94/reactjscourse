@@ -6,13 +6,16 @@ interface IUserContextData{
     name?: string;
     iconImg?: string;
 }
-
-export const userContext = React.createContext<IUserContextData>({});
+interface IUserContextData2{
+    data?: IUserContextData;
+    loading?: boolean;
+}
+export const userContext = React.createContext<IUserContextData2>({});
 
 export function UserContextProvider({children}: {children: React.ReactNode}) {
-    const [data] = useUserData();
+    const {data, loading} = useUserData();
     return(
-        <userContext.Provider value={data??{}}>
+        <userContext.Provider value={{data,loading}??{}}>
             {children}
         </userContext.Provider>
     )

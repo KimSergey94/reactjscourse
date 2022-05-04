@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Layout } from './shared/Layout/Layout';
 import './main.global.less';
@@ -12,11 +12,22 @@ import { usePostsData } from './hooks/usePostsData';
 import { displayTypeContext, TDisplayType } from './shared/context/displayTypeContext';
 import { useDisplayType } from './hooks/useDisplayType';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { Action, applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { rootReducer } from './store';
+import thunk, { ThunkAction } from 'redux-thunk';
+import { rootReducer, RootState } from './store/store';
 
-export const store = createStore(rootReducer, composeWithDevTools());
+
+export const store = createStore(rootReducer, composeWithDevTools(
+    applyMiddleware(thunk),
+));
+
+const timeout = (ms:number): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, _getState) => {
+    dispatch({type: 'START'});
+    setTimeout(()=> {
+        dispatch({type: 'FINISH'});
+    }, ms)
+}
 const LIST = [
     {As: 'li' as const, text: 'some'},
     {As: 'li' as const, text: 'some2'},
@@ -26,6 +37,11 @@ const LIST = [
 
 
 function AppComponent() {
+    useEffect(() => {
+        //@ts-ignore
+        store.dispatch(timeout(1500));
+    }, []);
+
     const [posts] = usePostsData();
     const [displayType] = useDisplayType();
 

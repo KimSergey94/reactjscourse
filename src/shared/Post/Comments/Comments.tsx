@@ -1,12 +1,14 @@
 import React, { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, updateComment } from '../../../store';
+import { RootState, updateComment } from '../../../store/store';
 import { generateId, generateRandomString } from '../../../utils/react/generateRandomIndex';
 import { userContext } from '../../context/userContext';
 import styles from './comments.less';
 import { FormCommentsContainer } from './FormCommentsContainer';
 import { ListComments } from './ListComments';
 import { SortComments } from './SortComments';
+
+
 const listComments = [
   {autor:'петр', text: 'Какой-то текст', category: 'It', avatarSrc: '', listSubComments: [
     {autor:'Андрей', text: 'Какой-то текст', category: 'It', avatarSrc: '', id: generateRandomString()}
@@ -22,15 +24,15 @@ export function Comments() {
   function onChange(event: ChangeEvent<HTMLTextAreaElement>){
       dispatch(updateComment(event.target.value));
   }
-  const {name, iconImg } = useContext(userContext);
+  const {data, loading } = useContext(userContext);
   const [list, setList] = useState(listComments);
   function handleSubmitForm (e: FormEvent) {
     e.preventDefault();
-    if (!name) {
+    if (!data?.name) {
       console.log('Что бы оставить комментарий авторизуйтесь')
       return
     }
-    setList([...list, { autor: name , text: value , category: 'Разработчик', avatarSrc: iconImg ? iconImg : '', id: generateRandomString()
+    setList([...list, { autor: data?.name , text: value , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString()
   }] );
   //onChange('')
   }
@@ -38,7 +40,7 @@ export function Comments() {
   return (
     < div className={styles.container}>
       <SortComments />
-      <FormCommentsContainer name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} />
+      <FormCommentsContainer name={data?.name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} />
       {/* <FormComments name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} /> */}
       <ListComments list={list} />
     </div>

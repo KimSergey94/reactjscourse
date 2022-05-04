@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React  from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, setToken } from "../store";
+import { RootState, setToken } from "../store/store";
 
 export function useToken(){
     // const [token, setToken] = useState('');
