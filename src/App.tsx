@@ -6,8 +6,6 @@ import { Header } from './shared/Header/Header';
 import { Content } from './shared/Content/Content';
 import { CardsList } from './shared/CardsList/CardsList';
 import {assignId} from './utils/react/generateRandomIndex';
-import { useToken } from './hooks/useToken';
-import { tokenContext } from './shared/context/tokenContext';
 import { postsContext } from './shared/context/postsContext';
 import { UserContextProvider } from './shared/context/userContext';
 import { usePostsData } from './hooks/usePostsData';
@@ -28,7 +26,6 @@ const LIST = [
 
 
 function AppComponent() {
-    //const [token] = useToken();
     const [posts] = usePostsData();
     const [displayType] = useDisplayType();
 
