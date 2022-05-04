@@ -39,7 +39,7 @@ export const setToken: ActionCreator<SetTokenAction> = (token:string) => ({
 type MyAction = UpdateCommentAction | SetTokenAction | MeRequestAction | MeRequestSuccessAction | MeRequestFailureAction;
 
 
-export const rootReducer: Reducer<RootState> = (state = initialState, action) => {
+export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, action) => {
     console.log('rootReducer action',action);
     switch(action.type){
         case UPDATE_COMMENT:
@@ -50,7 +50,7 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
         case SET_TOKEN:
             return {
                 ...state,
-                token: action.text,
+                token: action.token,
             };
         case ME_REQUEST:
         case ME_REQUEST_SUCCESS:
