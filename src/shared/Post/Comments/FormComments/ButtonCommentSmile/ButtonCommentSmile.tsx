@@ -4,7 +4,7 @@ import styles from './buttoncommentsmile.less';
 
 export function ButtonCommentSmile() {
   return (
-    <button>
+    <button type="button">
       <IconSmile />
     </button>
   );

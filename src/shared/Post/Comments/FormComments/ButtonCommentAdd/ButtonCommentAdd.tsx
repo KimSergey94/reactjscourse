@@ -4,7 +4,7 @@ import styles from './buttoncommentadd.less';
 
 export function ButtonCommentAdd() {
   return (
-    <button className={styles.button}>
+    <button className={styles.button} type="button">
       <IconAdd />
     </button>
   );

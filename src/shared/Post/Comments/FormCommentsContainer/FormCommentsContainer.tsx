@@ -1,20 +1,20 @@
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { FormComments } from '../FormComments/FormComments';
 
 interface IFormCommentsContainer{
-    handleSubmit: (e: FormEvent) => void;
-    handleChange: (e:ChangeEvent<HTMLTextAreaElement>) => void ;
+    handleSubmit: () => void;
+    // handleChange: (e:ChangeEvent<HTMLTextAreaElement>) => void ;
     valueInput: string;
     name?: string;
     handleClicked?: () => void;
 }
 function f () {}
-export function FormCommentsContainer({handleSubmit, handleChange, valueInput, name, handleClicked = f }: IFormCommentsContainer) {
+export function FormCommentsContainer({handleSubmit, valueInput, name, handleClicked = f }: IFormCommentsContainer) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(()=> {
     function handleClickedOut (event: MouseEvent){
       if(event.target instanceof Node && !ref.current?.contains(event.target))
-      handleClicked?.()
+        handleClicked?.()
     }
     document.addEventListener('click', handleClickedOut);
     return () => {
@@ -46,7 +46,7 @@ useEffect (()=> {
   return (
     <FormComments
         handleSubmit={handleSubmit}
-        handleChange={handleChange}
+        // handleChange={handleChange}
         valueInput={valueInput}
         ref={ref}
         refInput={refInput}

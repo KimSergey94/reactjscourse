@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, updateComment } from '../../../store/store';
 import { generateId, generateRandomString } from '../../../utils/react/generateRandomIndex';
@@ -26,21 +26,19 @@ export function Comments() {
   }
   const {data, loading } = useContext(userContext);
   const [list, setList] = useState(listComments);
-  function handleSubmitForm (e: FormEvent) {
-    e.preventDefault();
+
+  function handleSubmitForm () {
     if (!data?.name) {
       console.log('Что бы оставить комментарий авторизуйтесь')
       return
     }
-    setList([...list, { autor: data?.name , text: value , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString()
-  }] );
-  //onChange('')
+    setList([...list, { autor: data?.name , text: value , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString() }] );
   }
   
   return (
     < div className={styles.container}>
       <SortComments />
-      <FormCommentsContainer name={data?.name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} />
+      <FormCommentsContainer name={data?.name} handleSubmit={handleSubmitForm} valueInput={value} />
       {/* <FormComments name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} /> */}
       <ListComments list={list} />
     </div>

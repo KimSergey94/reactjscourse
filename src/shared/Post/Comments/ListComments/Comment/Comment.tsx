@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, ReactNode, useContext, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { generateRandomString } from '../../../../../utils/react/generateRandomIndex';
 import { userContext } from '../../../../context/userContext';
 import { IconAnon } from '../../../../Icons/IconAnon';
@@ -22,51 +22,41 @@ interface IComment {
 }
 
 interface IFullListComments {
-//   autor: string;
-//   text: string;
-//   category: string;
-//   avatarSrc: string;
-//   listSubComments?: {
-//     autor: string;
-//     text: string;
-//     category: string;
-//     avatarSrc: string;
-// } [];
-autor: string;
-text: string;
-category: string;
-avatarSrc: string;
-id: string
-listSubComments?: {
-autor: string;
-      text: string;
-      category: string;
-      avatarSrc: string;
-      id: string
+  autor: string;
+  text: string;
+  category: string;
+  avatarSrc: string;
+  id: string
+  listSubComments?: {
+  autor: string;
+    text: string;
+    category: string;
+    avatarSrc: string;
+    id: string
   } [];
 }
 export function Comment({author, categoryLeague, commentText, avatarSrc, subCommentList = [], arrFullComments, id}: IComment) {
-function handleClickedOut () {
-  setVisibleForm(false);
-}
+  function handleClickedOut () {
+    setVisibleForm(false);
+  }
   function handleClickComment () {
    setVisibleForm(!isVisibleForm);
-  
   }
   const [subComments, setSubCommentList] = useState(subCommentList);
   const [isVisibleForm , setVisibleForm] = useState(false);
   const [value , setValue] = useState(`${author}, `);
   const {data, loading } = useContext(userContext);
-  function submitForm (e: FormEvent) {
-    e.preventDefault();
+  function submitForm () {
     if(!data?.name) {
-      console.log('Нужно автоизоваться')
-      return}
+      console.log('Нужно авторизоваться')
+      return
+    }
     setSubCommentList([...subComments, { autor: data?.name? data?.name : 'Неизвестный' , text: value , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString()
   } ])
   setValue('');
   setVisibleForm(false)
   }
+  
   function handleChange (e: ChangeEvent<HTMLTextAreaElement>) {
     setValue(`${e.target.value}`)
   }
@@ -90,7 +80,7 @@ function handleClickedOut () {
     <div className={styles.text}>{commentText}</div>
     <CommentBar handleClickComment={handleClickComment}/>
     {isVisibleForm && (
-      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange} />
+      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} />
       // <FormComments handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange}/>
     )}
     <ul className={styles.list}>
