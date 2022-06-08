@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { FormComments } from '../FormComments/FormComments';
 
 interface IFormCommentsContainer{
-    handleSubmit: () => void;
+    handleSubmit: (comment:string) => void;
     // handleChange: (e:ChangeEvent<HTMLTextAreaElement>) => void ;
     valueInput: string;
     name?: string;

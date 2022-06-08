@@ -27,12 +27,12 @@ export function Comments() {
   const {data, loading } = useContext(userContext);
   const [list, setList] = useState(listComments);
 
-  function handleSubmitForm () {
+  function handleSubmitForm (comment:string) {
     if (!data?.name) {
       console.log('Что бы оставить комментарий авторизуйтесь')
       return
     }
-    setList([...list, { autor: data?.name , text: value , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString() }] );
+    setList([...list, { autor: data?.name , text: comment , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString() }] );
   }
   
   return (

@@ -6,7 +6,7 @@ import { ButtonCommentSmile } from './ButtonCommentSmile';
 import styles from './formcomments.less';
 
 interface IFormComments {
-  handleSubmit: () => void;
+  handleSubmit: (comment:string) => void;
   // handleChange: (e:ChangeEvent<HTMLTextAreaElement>) => void ;
   valueInput: string;
 
@@ -20,7 +20,7 @@ export function FormComments({handleSubmit, valueInput, ref, refInput, textAreaR
       commentText: valueInput,
     },
     onSubmit: (values) => {
-      handleSubmit();
+      handleSubmit(values.commentText);
     },
   });
   

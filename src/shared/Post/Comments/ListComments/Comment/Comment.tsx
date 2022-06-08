@@ -37,7 +37,7 @@ interface IFullListComments {
 }
 export function Comment({author, categoryLeague, commentText, avatarSrc, subCommentList = [], arrFullComments, id}: IComment) {
   function handleClickedOut () {
-    setVisibleForm(false);
+    setVisibleForm(true);//false
   }
   function handleClickComment () {
    setVisibleForm(!isVisibleForm);
@@ -46,12 +46,12 @@ export function Comment({author, categoryLeague, commentText, avatarSrc, subComm
   const [isVisibleForm , setVisibleForm] = useState(false);
   const [value , setValue] = useState(`${author}, `);
   const {data, loading } = useContext(userContext);
-  function submitForm () {
+  function submitForm (comment:string) {
     if(!data?.name) {
       console.log('Нужно авторизоваться')
       return
     }
-    setSubCommentList([...subComments, { autor: data?.name? data?.name : 'Неизвестный' , text: value , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString()
+    setSubCommentList([...subComments, { autor: data?.name? data?.name : 'Неизвестный' , text: comment , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString()
   } ])
   setValue('');
   setVisibleForm(false)
@@ -80,7 +80,7 @@ export function Comment({author, categoryLeague, commentText, avatarSrc, subComm
     <div className={styles.text}>{commentText}</div>
     <CommentBar handleClickComment={handleClickComment}/>
     {isVisibleForm && (
-      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} />
+      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={value} handleSubmit={submitForm} />
       // <FormComments handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange}/>
     )}
     <ul className={styles.list}>
