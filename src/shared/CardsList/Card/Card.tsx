@@ -18,6 +18,9 @@ export function Card(props: ICardProps){
     const handleClickModal = () => {
       setIsModalOpened(!isModalOpened)
     }
+
+    props.content.handleOpenCommentModal = handleClickModal;
+    
     return(
         <li className={styles.card} id={`card${props.cardId}`}>
             <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} isCommentModalOpened={isModalOpened} handleOpenCommentModal={handleClickModal} cardId={props.cardId}/>
