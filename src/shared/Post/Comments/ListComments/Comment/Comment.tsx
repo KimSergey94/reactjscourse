@@ -80,7 +80,7 @@ export function Comment({author, categoryLeague, commentText, avatarSrc, subComm
     <div className={styles.text}>{commentText}</div>
     <CommentBar handleClickComment={handleClickComment}/>
     {isVisibleForm && (
-      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={value} handleSubmit={submitForm} />
+      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={value} handleSubmit={submitForm} name={data?.name}/>
       // <FormComments handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange}/>
     )}
     <ul className={styles.list}>

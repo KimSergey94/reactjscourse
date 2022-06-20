@@ -9,12 +9,12 @@ interface IFormComments {
   handleSubmit: (comment:string) => void;
   // handleChange: (e:ChangeEvent<HTMLTextAreaElement>) => void ;
   valueInput: string;
-
+  name?: string;
   ref: React.RefObject<HTMLDivElement>;
   refInput: React.RefObject<HTMLTextAreaElement>;
   textAreaRows: number;
 }
-export function FormComments({handleSubmit, valueInput, ref, refInput, textAreaRows }: IFormComments) {
+export function FormComments({handleSubmit, valueInput, ref, refInput, textAreaRows, name }: IFormComments) {
   const formik = useFormik({
     initialValues: {
       commentText: valueInput,
@@ -30,9 +30,10 @@ export function FormComments({handleSubmit, valueInput, ref, refInput, textAreaR
         <div className={styles.buttonCommentAddContainer}>
           <ButtonCommentAdd />
         </div>
+
         <textarea ref={refInput} id="commentText"
           rows={textAreaRows} onChange={formik.handleChange}
-          value={formik.values.commentText} placeholder={textAreaRows ===3 && name ? `${name} оставьте ваш комментарий` :'Ваш комментарий'} className={styles.input}  />
+          value={formik.values.commentText} placeholder={textAreaRows ===1 && name ? `${name} оставьте ваш комментарий` :'Ваш комментарий'} className={styles.input}  />
         <ButtonCommentSmile />
         <button className={styles.buttonSubmit} type="submit"><IconFormCommentSubmit /></button>
       </form>

@@ -47,6 +47,7 @@ useEffect (()=> {
     <FormComments
         handleSubmit={handleSubmit}
         // handleChange={handleChange}
+        name={name}
         valueInput={valueInput}
         ref={ref}
         refInput={refInput}

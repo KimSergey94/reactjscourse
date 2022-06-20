@@ -6,7 +6,7 @@ import { IMenuProps, Menu } from "./Menu/Menu";
 import { IPreviewProps, Preview } from "./Preview/Preview";
 import { ITextContentProps, TextContent } from "./TextContent/TextContent";
 
-interface ICardProps{
+export interface ICardProps{
     content: ITextContentProps;
     preview: IPreviewProps;
     // menuProps: IMenuProps;
@@ -25,5 +25,11 @@ export function Card(props: ICardProps){
             <Menu cardId={props.cardId}/>
             <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />
         </li>
+        // <li className={styles.card} id={`card${props.cardId}`}>
+        //     <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} isCommentModalOpened={isModalOpened} handleOpenCommentModal={handleClickModal} cardId={props.cardId}/>
+        //     <Preview imgSrc={props.preview.imgSrc}/>
+        //     <Menu cardId={props.cardId}/>
+        //     <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />
+        // </li>
     );
 }
