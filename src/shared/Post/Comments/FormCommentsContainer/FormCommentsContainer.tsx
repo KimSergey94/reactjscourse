@@ -43,13 +43,14 @@ useEffect (()=> {
     return () => window.removeEventListener('resize', handleResize);
   },[])
 
+  console.log('FormCommentsContainer',ref, refInput);
   return (
     <FormComments
         handleSubmit={handleSubmit}
         // handleChange={handleChange}
         name={name}
         valueInput={valueInput}
-        ref={ref}
+        myRef={ref}
         refInput={refInput}
         textAreaRows={textAreaRows}
     />
