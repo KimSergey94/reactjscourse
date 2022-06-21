@@ -13,7 +13,7 @@ export function CardsList() {
     const [loading, setLoading] = useState(false);
     const [errorLoading, setErrorLoading] = useState('');
     const [nextAfter, setNextAfter] = useState('');
-    const [intersectionCounter, setIntersectionCounter] = useState(0);
+    const [intersectionCounter, setIntersectionCounter] = useState(-1);
     const [showLoadBtn, setShowLoadBtn] = useState(false);
     const [loadMoreTrigger, setLoadMoreTrigger] = useState(false);
     
@@ -29,7 +29,7 @@ export function CardsList() {
                 {
                     headers: {Authorization: `bearer ${token}`}, 
                     params: {
-                        limit:3,
+                        limit:2,
                         after:nextAfter,
                     }
                 });
@@ -73,7 +73,7 @@ export function CardsList() {
 
 
         const observer = new IntersectionObserver((entries)=>{
-            if(entries[0].isIntersecting && nextAfter !== null) {
+            if(entries[0].isIntersecting && nextAfter !== null && !loadMoreTrigger) {
                 setIntersectionCounter(intersectionCounter + 1);
                 if(intersectionCounter > 2 && intersectionCounter % 3 === 0){
                     setShowLoadBtn(true);
