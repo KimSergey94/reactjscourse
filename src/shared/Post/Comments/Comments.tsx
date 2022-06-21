@@ -16,7 +16,7 @@ const listComments = [
 },
 {autor:'петр', text: 'Какой-то текст', category: 'Робототехника',avatarSrc: ''
 },
-].map(generateId)
+].map(generateId) 
 
 export function Comments() {
   const value = useSelector<RootState, string>(state => state.commentText);

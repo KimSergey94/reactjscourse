@@ -13,6 +13,9 @@ export function CardsList() {
     const [loading, setLoading] = useState(false);
     const [errorLoading, setErrorLoading] = useState('');
     const [nextAfter, setNextAfter] = useState('');
+    const [intersectionCounter, setIntersectionCounter] = useState(0);
+    const [showLoadBtn, setShowLoadBtn] = useState(false);
+    const [loadMoreTrigger, setLoadMoreTrigger] = useState(false);
     
     const bottomOfList = useRef<HTMLDivElement>(null);
 
@@ -22,21 +25,11 @@ export function CardsList() {
             setErrorLoading('');
 
             try{
-                // const {data} = await axios.get('https://oauth.reddit.com/rising/', 
-                // {
-                //     headers: {Authorization: `bearer ${token}`}, 
-                //     params: {
-                //         limit:10,
-                //         after:nextAfter,
-                //     }
-                // });
-                // console.log('data',data);
-
                 const {data: {data: {after, children}}} = await axios.get('https://oauth.reddit.com/rising/', 
                 {
                     headers: {Authorization: `bearer ${token}`}, 
                     params: {
-                        limit:10,
+                        limit:3,
                         after:nextAfter,
                     }
                 });
@@ -80,7 +73,16 @@ export function CardsList() {
 
 
         const observer = new IntersectionObserver((entries)=>{
-            if(entries[0].isIntersecting) load();
+            if(entries[0].isIntersecting && nextAfter !== null) {
+                setIntersectionCounter(intersectionCounter + 1);
+                if(intersectionCounter > 2 && intersectionCounter % 3 === 0){
+                    setShowLoadBtn(true);
+                }
+                else{
+                    load();
+                    setShowLoadBtn(false);
+                }
+            }
         },
         {
             rootMargin: '10px',
@@ -90,12 +92,17 @@ export function CardsList() {
             observer.observe(bottomOfList.current);
         }
 
+        if(loadMoreTrigger){
+            load();
+            setLoadMoreTrigger(false);
+        }
+        
         return ()=>{
             if(bottomOfList.current){
                 observer.unobserve(bottomOfList.current);
             }
         }
-    }, [bottomOfList.current, nextAfter, token]);
+    }, [bottomOfList.current, nextAfter, token, loadMoreTrigger]);
 
     return (
         <ul className={styles.cardsList}>
@@ -109,6 +116,11 @@ export function CardsList() {
             <div ref={bottomOfList}/>
             {loading && (
                 <div style={{textAlign: 'center'}}>Загрузка...</div>
+            )}
+            {showLoadBtn && (
+                <div style={{display:'flex', justifyContent:'center'}}>
+                    <button style={{textAlign: 'center'}} onClick={() => setLoadMoreTrigger(true)}>Загрузить еще</button>
+                </div>
             )}
 
             {errorLoading && (
