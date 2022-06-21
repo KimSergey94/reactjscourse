@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { useNavigate  } from "react-router-dom";
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter';
 import { ReturnArrow } from '../Icons/ReturnArrow';
 import { Comments } from './Comments';
@@ -19,16 +20,18 @@ interface IPost{
     category?: string,
     description?: string,
     onClose?: ()=> void,
-    cardId: number,
+    cardId: string,
     avatar?: string,
 }
 export function Post(props: IPost){
     const ref = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     useEffect(()=> {
         function handleClick(event: MouseEvent){
             if(event.target instanceof Node && !ref.current?.contains(event.target))
-                props.onClose?.();
+                //props.onClose?.();
+                navigate('/');
         }
 
         document.addEventListener('click', handleClick);

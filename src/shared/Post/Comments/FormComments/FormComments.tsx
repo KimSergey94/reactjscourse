@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { IconFormCommentSubmit } from '../../../Icons/IconFormCommentSubmit';
 import { ButtonCommentAdd } from './ButtonCommentAdd';
 import { ButtonCommentSmile } from './ButtonCommentSmile';
@@ -23,7 +23,6 @@ export function FormComments({handleSubmit, valueInput, myRef, refInput, textAre
       handleSubmit(values.commentText);
     },
   });
-  console.log('FormComments',myRef, refInput);
   
   return (
     <div ref={myRef} className={styles.containerForm}>

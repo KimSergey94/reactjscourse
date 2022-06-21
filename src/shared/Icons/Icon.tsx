@@ -5,7 +5,7 @@ import { HideIcon } from './HideIcon';
 import { SaveIcon } from './SaveIcon';
 import { WarningIcon } from './WarningIcon';
 import classNames from 'classnames';
-import styles from './Icon.less';
+import styles from './icon.less';
 import { ShareIcon } from './ShareIcon';
 import { AnonIcon } from './AnonIcon';
 

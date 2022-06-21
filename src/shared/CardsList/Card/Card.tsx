@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { displayTypeContext } from "../../context/displayTypeContext";
 import styles from './card.less';
 import { Controls, IControlsProps } from "./Controls/Controls";
 import { IMenuProps, Menu } from "./Menu/Menu";
@@ -11,7 +10,7 @@ export interface ICardProps{
     preview: IPreviewProps;
     // menuProps: IMenuProps;
     controls: IControlsProps;
-    cardId: number;
+    cardId: string;
 }
 export function Card(props: ICardProps){
     const [isModalOpened, setIsModalOpened] = useState(false)
@@ -23,7 +22,8 @@ export function Card(props: ICardProps){
     
     return(
         <li className={styles.card} id={`card${props.cardId}`}>
-            <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} isCommentModalOpened={isModalOpened} handleOpenCommentModal={handleClickModal} cardId={props.cardId}/>
+            <TextContent displayName={props.content.displayName} postedTimeAgo={props.content.postedTimeAgo} title={props.content.title} imgLink={props.content.imgLink} handleOpenCommentModal={handleClickModal} cardId={props.cardId}/>
+            {/* isCommentModalOpened={isModalOpened} */}
             <Preview imgSrc={props.preview.imgSrc}/>
             <Menu cardId={props.cardId}/>
             <Controls karmaValue={props.controls.karmaValue} commentsNumber={props.controls.commentsNumber} />

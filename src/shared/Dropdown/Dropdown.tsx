@@ -12,7 +12,7 @@ interface IDropdownProps {
     isOpen?: boolean;
     onOpen?: () => void;
     onClose?: () => void;
-    cardId: number;
+    cardId: string;
 }
 
 const NOOP = () => {};

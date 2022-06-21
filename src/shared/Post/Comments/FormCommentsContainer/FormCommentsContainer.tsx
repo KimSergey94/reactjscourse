@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FormComments } from '../FormComments/FormComments';
 
 interface IFormCommentsContainer{
@@ -43,7 +43,6 @@ useEffect (()=> {
     return () => window.removeEventListener('resize', handleResize);
   },[])
 
-  console.log('FormCommentsContainer',ref, refInput);
   return (
     <FormComments
         handleSubmit={handleSubmit}

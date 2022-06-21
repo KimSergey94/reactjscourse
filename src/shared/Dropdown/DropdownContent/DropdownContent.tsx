@@ -5,7 +5,7 @@ import styles from './dropdowncontent.less';
 interface IDropdownContent{
     handleClick: () => void;
     children: React.ReactNode | string;
-    cardId: number;
+    cardId: string;
     onClose?: () => void;
   }
   export function DropdownContent({handleClick, children, cardId, onClose}:IDropdownContent) {

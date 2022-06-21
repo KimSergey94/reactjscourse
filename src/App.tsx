@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Layout } from './shared/Layout/Layout';
 import './main.global.less';
 import { Header } from './shared/Header/Header';
 import { Content } from './shared/Content/Content';
 import { CardsList } from './shared/CardsList/CardsList';
-import {assignId} from './utils/react/generateRandomIndex';
+import {assignId, generateRandomString} from './utils/react/generateRandomIndex';
 import { postsContext } from './shared/context/postsContext';
 import { UserContextProvider } from './shared/context/userContext';
 import { usePostsData } from './hooks/usePostsData';
@@ -16,7 +16,8 @@ import { Action, applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk, { ThunkAction } from 'redux-thunk';
 import { rootReducer, RootState } from './store/store';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
+import { Post } from './shared/Post';
 
 
 export const store = createStore(rootReducer, composeWithDevTools(
@@ -29,15 +30,14 @@ const timeout = (ms:number): ThunkAction<void, RootState, unknown, Action<string
         dispatch({type: 'FINISH'});
     }, ms)
 }
-const LIST = [
-    {As: 'li' as const, text: 'some'},
-    {As: 'li' as const, text: 'some2'},
-    {As: 'li' as const, text: 'some3'},
-    {As: 'li' as const, text: 'some4'},
-].map(assignId)
-
 
 function AppComponent() {
+    const [mounted, setMounted] = useState(false);
+    
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     useEffect(() => {
         //@ts-ignore
         store.dispatch(timeout(1500));
@@ -48,20 +48,27 @@ function AppComponent() {
 
     return(
     <Provider store={store}>
-        <BrowserRouter>
-            <UserContextProvider>
-                <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
-                    <Layout>
-                        <Header/>
-                        <Content>
-                            <postsContext.Provider value={posts}>
-                                <CardsList/>
-                            </postsContext.Provider>
-                        </Content>
-                    </Layout>
-                </displayTypeContext.Provider>
-            </UserContextProvider>
-        </BrowserRouter>
+        {mounted && (
+            <BrowserRouter>
+                <UserContextProvider>
+                    <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
+                      
+                        <Layout>
+                            <Header/>
+                            <Content>
+                                <postsContext.Provider value={posts}>
+                                    <CardsList/>
+
+                                    <Routes>
+                                        <Route path="/posts/:id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
+                                    </Routes>
+                                </postsContext.Provider>
+                            </Content>
+                        </Layout>
+                    </displayTypeContext.Provider>
+                </UserContextProvider>
+            </BrowserRouter>
+        )}
     </Provider>
     );
 }

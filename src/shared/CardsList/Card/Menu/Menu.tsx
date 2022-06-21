@@ -7,7 +7,7 @@ import styles from './menu.less';
 import { MenuItemsList } from './MenuItemsList';
 
 export interface IMenuProps{
-    cardId: number;
+    cardId: string;
 }
 
 export function Menu (props: IMenuProps) {

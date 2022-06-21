@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, updateComment } from '../../../store/store';
-import { generateId, generateRandomString } from '../../../utils/react/generateRandomIndex';
+import { generateRandomString } from '../../../utils/react/generateRandomIndex';
 import { userContext } from '../../context/userContext';
 import styles from './comments.less';
 import { FormCommentsContainer } from './FormCommentsContainer';
@@ -12,11 +12,11 @@ import { SortComments } from './SortComments';
 const listComments = [
   {autor:'петр', text: 'Какой-то текст', category: 'It', avatarSrc: '', listSubComments: [
     {autor:'Андрей', text: 'Какой-то текст', category: 'It', avatarSrc: '', id: generateRandomString()}
-  ]
+  ], id: generateRandomString()
 },
-{autor:'петр', text: 'Какой-то текст', category: 'Робототехника',avatarSrc: ''
+{autor:'петр', text: 'Какой-то текст', category: 'Робототехника',avatarSrc: '', id: generateRandomString()
 },
-].map(generateId) 
+]
 
 export function Comments() {
   const value = useSelector<RootState, string>(state => state.commentText);

@@ -3,7 +3,7 @@ import { Menu } from '../../CardsList/Card/Menu';
 import { EColors, Text } from '../../Text';
 import styles from './postheader.less';
 interface IPostHeader {
-  cardId: number;
+  cardId: string;
   idContainerResultMenu: string
 }
 export function PostHeader({cardId, idContainerResultMenu}: IPostHeader) {

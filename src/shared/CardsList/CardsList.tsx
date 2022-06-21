@@ -43,7 +43,7 @@ export function CardsList() {
                             title: x.data.title,
                             imgLink: x.data.thumbnail,
                             cardId: x.data.id,
-                            isCommentModalOpened: false,
+                            // isCommentModalOpened: false,
                             handleOpenCommentModal: ()=>{}
                         },
                         preview: {
