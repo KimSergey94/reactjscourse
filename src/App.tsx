@@ -16,6 +16,7 @@ import { Action, applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk, { ThunkAction } from 'redux-thunk';
 import { rootReducer, RootState } from './store/store';
+import { BrowserRouter } from 'react-router-dom';
 
 
 export const store = createStore(rootReducer, composeWithDevTools(
@@ -47,18 +48,20 @@ function AppComponent() {
 
     return(
     <Provider store={store}>
-        <UserContextProvider>
-            <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
-                <Layout>
-                    <Header/>
-                    <Content>
-                        <postsContext.Provider value={posts}>
-                            <CardsList/>
-                        </postsContext.Provider>
-                    </Content>
-                </Layout>
-            </displayTypeContext.Provider>
-        </UserContextProvider>
+        <BrowserRouter>
+            <UserContextProvider>
+                <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
+                    <Layout>
+                        <Header/>
+                        <Content>
+                            <postsContext.Provider value={posts}>
+                                <CardsList/>
+                            </postsContext.Provider>
+                        </Content>
+                    </Layout>
+                </displayTypeContext.Provider>
+            </UserContextProvider>
+        </BrowserRouter>
     </Provider>
     );
 }
