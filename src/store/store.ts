@@ -1,11 +1,13 @@
 import { ActionCreator, AnyAction, Reducer } from "redux";
+import { ICardProps } from "../shared/CardsList/Card";
 import { MeRequestAction, MeRequestFailureAction, MeRequestSuccessAction, ME_REQUEST, ME_REQUEST_FAILURE, ME_REQUEST_SUCCESS } from "./me/actions";
 import { meReducer, MeState } from "./me/reducer";
 
 export type RootState = {
     commentText: string;
     token: string;
-    me: MeState
+    me: MeState;
+    cardProps: ICardProps[];
 }
 const initialState:RootState = {
     commentText: 'Привет, Skillbox!',
@@ -14,7 +16,8 @@ const initialState:RootState = {
         loading: false,
         error: '',
         data: {},
-    }
+    },
+    cardProps: []
 }
 
 const UPDATE_COMMENT = 'UPDATE_COMMENT';
@@ -35,8 +38,16 @@ export const setToken: ActionCreator<SetTokenAction> = (token:string) => ({
     type: SET_TOKEN, 
     token,
 });
-
-type MyAction = UpdateCommentAction | SetTokenAction | MeRequestAction | MeRequestSuccessAction | MeRequestFailureAction;
+const UPDATE_CARD_PROPS = 'UPDATE_CARD_PROPS';
+type UpdateCardPropsAction = {
+    type: typeof UPDATE_CARD_PROPS;
+    cardProps: ICardProps[];
+}
+export const updateCardProps: ActionCreator<UpdateCardPropsAction> = (cardProps) => ({
+    type: UPDATE_CARD_PROPS, 
+    cardProps
+});
+type MyAction = UpdateCommentAction | SetTokenAction | MeRequestAction | MeRequestSuccessAction | MeRequestFailureAction | UpdateCardPropsAction;
 
 
 export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, action) => {
@@ -58,8 +69,12 @@ export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, 
             return {
                 ...state,
                 me: meReducer(state.me, action)
-            }
-
+            };
+        case UPDATE_CARD_PROPS:
+            return {
+                ...state,
+                cardProps: action.cardProps,
+            };
         default: return state;
     }
 }

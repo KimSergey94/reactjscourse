@@ -1,21 +1,24 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { postsContext } from "../context/postsContext";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, updateCardProps } from "../../store/store";
+// import { postsContext } from "../context/postsContext";
 import { Card, ICardProps } from "./Card/Card";
 import styles from './cardslist.less';
 
 export function CardsList() {
-    const posts = useContext(postsContext);
+    // const posts = useContext(postsContext);
     const token = useSelector<RootState>(state=> state.token);
-    const [cardProps, setCardPosts] = useState<ICardProps[]>([]);
     const [loading, setLoading] = useState(false);
     const [errorLoading, setErrorLoading] = useState('');
     const [nextAfter, setNextAfter] = useState('');
     const [intersectionCounter, setIntersectionCounter] = useState(-1);
     const [showLoadBtn, setShowLoadBtn] = useState(false);
     const [loadMoreTrigger, setLoadMoreTrigger] = useState(false);
+    const dispatch = useDispatch();
+    const [cardProps, setCardPosts] = useState<ICardProps[]>([]);
+    const cardPropsList = useSelector<RootState, ICardProps[]>(state => state.cardProps);
+
     
     const bottomOfList = useRef<HTMLDivElement>(null);
 
@@ -33,10 +36,11 @@ export function CardsList() {
                         after:nextAfter,
                     }
                 });
-                const cardProps: ICardProps[] = [];
+                if(after == nextAfter){alert(11111);}
+                const cardPropsTemp: ICardProps[] = [];
                 children.map((x:any)=>{
                     console.log(x);
-                    const cardProp: ICardProps = {
+                    const cardPropTemp: ICardProps = {
                         content: {
                             displayName: x.data.author || x.data.name,
                             postedTimeAgo: x.data.created,
@@ -55,13 +59,12 @@ export function CardsList() {
                         },
                         cardId: x.data.id
                     };
-                    cardProps.push(cardProp);
+                    cardPropsTemp.push(cardPropTemp);
                 });
                 setNextAfter(after);
-                console.log('after',after);
-                console.log('nextAfter',nextAfter);
-                setCardPosts(prevChildren => prevChildren.concat(...cardProps));
-
+                setCardPosts(prevChildren => prevChildren.concat(...cardPropsTemp));
+                dispatch(updateCardProps(cardProps));
+                console.log('cardProps cardPropsList', cardProps, cardPropsList);
             }
             catch(err){
                 console.error(err);
@@ -106,7 +109,7 @@ export function CardsList() {
 
     return (
         <ul className={styles.cardsList}>
-            {posts?.length === 0 && !loading && !errorLoading && (
+            {cardProps?.length === 0 && !loading && !errorLoading && (
                 <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
             )}
 

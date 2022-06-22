@@ -1,6 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { useNavigate  } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams  } from "react-router-dom";
+import { RootState } from '../../store/store';
+import { ICardProps } from '../CardsList/Card';
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter';
 import { ReturnArrow } from '../Icons/ReturnArrow';
 import { Comments } from './Comments';
@@ -24,9 +28,14 @@ interface IPost{
     avatar?: string,
 }
 export function Post(props: IPost){
+
+  const params = useParams();
+
     const ref = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
-
+    const token = useSelector<RootState>(state=> state.token);
+    const [commentsLoading, setCommentsLoading] = useState(false);
+    const cardPropsList = useSelector<RootState, ICardProps[]>(state => state.cardProps);
     useEffect(()=> {
         function handleClick(event: MouseEvent){
             if(event.target instanceof Node && !ref.current?.contains(event.target))
@@ -34,12 +43,36 @@ export function Post(props: IPost){
                 navigate('/');
         }
 
-        document.addEventListener('click', handleClick);
+        async function load(){
+          setCommentsLoading(true);
+          try{
+            const data = await axios.get(`https://oauth.reddit.com/comments/${props.cardId}`, 
+            {
+                headers: {Authorization: `bearer ${token}`}
+            });
+            console.log('data', data);
+          }
+          catch(err){
+            console.error(err);
+          }
+          
+          setCommentsLoading(false);
+        }
+        load();
 
+        document.addEventListener('click', handleClick);
         return () => {
+          console.log('post comments load props.cardId',props.cardId);
+          console.log('params',params);
+        
             document.removeEventListener('click', handleClick);
         }
     }, []);
+
+    
+    console.log('2post comments load props.cardId',props.cardId);
+    console.log('2params',params);
+  
 
     //const node = document.getElementById(`card${props.cardId}`);
     const node = document.querySelector('#modal_root');

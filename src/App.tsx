@@ -43,7 +43,7 @@ function AppComponent() {
         store.dispatch(timeout(1500));
     }, []);
 
-    const [posts] = usePostsData();
+    // const [posts] = usePostsData();
     const [displayType] = useDisplayType();
 
     return(
@@ -56,13 +56,11 @@ function AppComponent() {
                         <Layout>
                             <Header/>
                             <Content>
-                                <postsContext.Provider value={posts}>
                                     <CardsList/>
 
                                     <Routes>
                                         <Route path="/posts/:id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
                                     </Routes>
-                                </postsContext.Provider>
                             </Content>
                         </Layout>
                     </displayTypeContext.Provider>
