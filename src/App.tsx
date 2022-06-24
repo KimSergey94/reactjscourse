@@ -11,13 +11,15 @@ import { UserContextProvider } from './shared/context/userContext';
 import { usePostsData } from './hooks/usePostsData';
 import { displayTypeContext, TDisplayType } from './shared/context/displayTypeContext';
 import { useDisplayType } from './hooks/useDisplayType';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { Action, applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk, { ThunkAction } from 'redux-thunk';
 import { rootReducer, RootState } from './store/store';
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import { Post } from './shared/Post';
+import { Navigate } from 'react-router-dom';
+import { NotFoundForm } from './shared/NotFoundForm/NotFoundForm';
 
 
 export const store = createStore(rootReducer, composeWithDevTools(
@@ -56,10 +58,15 @@ function AppComponent() {
                         <Layout>
                             <Header/>
                             <Content>
-                                    <CardsList/>
-
                                     <Routes>
+                                        <Route path="/posts/" element={<CardsList />} />
                                         <Route path="/posts/:id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
+                                        <Route path="/notfound/" element={<NotFoundForm />} />
+                                        
+                                        {/* <Route path="/" element={window.__token__ === 'undefined' ? <Navigate replace to="/auth" /> : <Navigate replace to="/posts" />} /> */}
+                                        <Route path="/auth" element={<Navigate to="/posts" />} />
+                                        <Route path="/" element={<Navigate to="/posts" />} />
+                                        <Route path="*" element={<Navigate replace to="/notfound" />} />
                                     </Routes>
                             </Content>
                         </Layout>
