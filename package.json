@@ -2,11 +2,15 @@
   "name": "reactjscourse",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev": "cross-env NODE_ENV=development CLIENT_ID=vVMpMj5mCEsVK48LwY5AUw CLIENT_PWD=BtOchjoAZsJGcCuOjAtbIt-7Aw1Mtg node ./bin/dev.js",
-    "test": "npx jest ---watch"
+    "test": "npx jest ---watch",
+    "start": "node ./dist/server/server.js"
   },
   "repository": {
     "type": "git",
@@ -39,9 +43,7 @@
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
     "webpack": "^5.63.0",
-    "webpack-dev-middleware": "^5.2.1"
-  },
-  "devDependencies": {
+    "webpack-dev-middleware": "^5.2.1",
     "@hot-loader/react-dom": "^17.0.1",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react": "^17.0.37",
