@@ -9,8 +9,10 @@ interface IUserBlockProps {
     username?: string
     loading?: boolean
 }
+
+
 export function UserBlock({avatarSrc, username, loading}: IUserBlockProps){
-    const hrefUrl = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}+"&response_type=code&state=random_string&redirect_uri="+${process.env.SERVER}+"/auth&duration=permanent&scope=read submit identity"`;
+    const hrefUrl = `https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=${process.env.SERVER}/auth&duration=permanent&scope=read submit identity`;
     return(
         <a href={hrefUrl}
         className={styles.userBox}>
