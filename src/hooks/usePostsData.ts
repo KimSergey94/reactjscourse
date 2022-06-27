@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IControlsProps } from '../shared/CardsList/Card/Controls';
 import { IPreviewProps } from '../shared/CardsList/Card/Preview';
 import { ITextContentProps } from '../shared/CardsList/Card/TextContent';

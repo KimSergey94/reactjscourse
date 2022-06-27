@@ -1,5 +1,4 @@
 import React from 'react';
-import { usePostsData } from '../../hooks/usePostsData';
 import { IControlsProps } from '../CardsList/Card/Controls';
 import { IPreviewProps } from '../CardsList/Card/Preview';
 import { ITextContentProps } from '../CardsList/Card/TextContent';
