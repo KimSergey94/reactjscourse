@@ -8,9 +8,9 @@
   "scripts": {
     "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "dev": "cross-env NODE_ENV=development CLIENT_ID=vVMpMj5mCEsVK48LwY5AUw CLIENT_PWD=BtOchjoAZsJGcCuOjAtbIt-7Aw1Mtg SERVER_URL='http://localhost:3000' node ./bin/dev.js",
+    "dev": "cross-env NODE_ENV=development CLIENT_ID=vVMpMj5mCEsVK48LwY5AUw CLIENT_PWD=BtOchjoAZsJGcCuOjAtbIt-7Aw1Mtg SERVER_URL=http://localhost:3000 node ./bin/dev.js",
     "test": "npx jest ---watch",
-    "start": "cross-env NODE_ENV=production CLIENT_ID=EUHTrfLPfr0Qb4hU3F-NcA CLIENT_PWD=V9mTS59TMyDO42K-PqCGKA5oSHlAJQ SERVER_URL='https://skillbox-react-app1.herokuapp.com' node ./dist/server/server.js"
+    "start": "cross-env NODE_ENV=production CLIENT_ID=EUHTrfLPfr0Qb4hU3F-NcA CLIENT_PWD=V9mTS59TMyDO42K-PqCGKA5oSHlAJQ SERVER_URL=https://skillbox-react-app1.herokuapp.com node ./dist/server/server.js"
   },
   "repository": {
     "type": "git",
