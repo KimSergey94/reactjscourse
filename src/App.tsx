@@ -56,12 +56,10 @@ function AppComponent() {
                             <Header/>
                             <Content>
                                     <Routes>
+                                        <Route path="/notfound/" element={<NotFoundForm />} />
+                                        <Route path="/auth" element={<Navigate to="/posts" />} />
                                         <Route path="/posts/" element={<CardsList />} />
                                         <Route path="/posts/:id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
-                                        <Route path="/notfound/" element={<NotFoundForm />} />
-                                        
-                                        {/* <Route path="/" element={window.__token__ === 'undefined' ? <Navigate replace to="/auth" /> : <Navigate replace to="/posts" />} /> */}
-                                        <Route path="/auth" element={<Navigate to="/posts" />} />
                                         <Route path="/" element={<Navigate to="/posts" />} />
                                         <Route path="*" element={<Navigate replace to="/notfound" />} />
                                     </Routes>
