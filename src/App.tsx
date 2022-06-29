@@ -44,26 +44,34 @@ function AppComponent() {
 
     // const [posts] = usePostsData();
     const [displayType] = useDisplayType();
-
+    const MainRoutes = () => {
+        return(
+        <>
+            <Header/>
+            <Content>
+            <Routes>
+                <Route path="/posts/" element={<CardsList />} />
+                <Route path="/posts/:id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
+                <Route path="/auth" element={<Navigate to="/posts" />} />
+                <Route path="/" element={<Navigate to="/posts" />} />
+                <Route path="*" element={<Navigate replace to="/notfound" />} />
+            </Routes>
+            </Content>
+        </>
+        )
+    }
+    
     return(
     <Provider store={store}>
         {mounted && (
             <BrowserRouter>
                 <UserContextProvider>
                     <displayTypeContext.Provider value={{displayType: displayType as TDisplayType}}>
-                      
                         <Layout>
-                            <Header/>
-                            <Content>
-                                    <Routes>
-                                        <Route path="/notfound/" element={<NotFoundForm />} />
-                                        <Route path="/auth" element={<Navigate to="/posts" />} />
-                                        <Route path="/posts/" element={<CardsList />} />
-                                        <Route path="/posts/:id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
-                                        <Route path="/" element={<Navigate to="/posts" />} />
-                                        <Route path="*" element={<Navigate replace to="/notfound" />} />
-                                    </Routes>
-                            </Content>
+                        <Routes>
+                            <Route path="/notfound/" element={<NotFoundForm />} />
+                            <Route path="*" element={<MainRoutes />} />
+                        </Routes>
                         </Layout>
                     </displayTypeContext.Provider>
                 </UserContextProvider>

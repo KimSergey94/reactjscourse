@@ -7,12 +7,12 @@ import compression from 'compression';
 import helmet from 'helmet';
 
 const PORT = process.env.PORT || 3000;
-const SERVER = process.env.SERVER_URL || 'http://localhost';
+const SERVER = process.env.SERVER_URL || 'http://localhost:3000';
 const app = express();
    app.use(compression());
-   app.use(helmet({
-      contentSecurityPolicy: false
-   }));
+   // app.use(helmet({
+   //    contentSecurityPolicy: false
+   // }));
 
 
 app.use('/static', express.static('./dist/client'));
@@ -44,7 +44,7 @@ app.get('*', (req, res) => {
 
 
 app.listen(PORT, () => {
-   console.log(`Server started on ${SERVER}:${PORT}`);
+   console.log(`Server started on ${SERVER}`);
 });
 
 
