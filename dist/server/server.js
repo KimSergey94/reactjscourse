@@ -927,6 +927,19 @@ module.exports = function (i) {
 
 /***/ }),
 
+/***/ 281:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SERVER_URL = exports.CLIENT_PWD = exports.CLIENT_ID = void 0;
+exports.CLIENT_ID =  true ? 'EUHTrfLPfr0Qb4hU3F-NcA' : 0;
+exports.CLIENT_PWD =  true ? 'V9mTS59TMyDO42K-PqCGKA5oSHlAJQ' : 0;
+exports.SERVER_URL =  true ? 'https://skillbox-react-app1.herokuapp.com' : 0;
+
+
+/***/ }),
+
 /***/ 8957:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1100,8 +1113,9 @@ var App_1 = __webpack_require__(8957);
 var indexTemplate_1 = __webpack_require__(4838);
 var axios_1 = __importDefault(__webpack_require__(2167));
 var compression_1 = __importDefault(__webpack_require__(7455));
+var config_1 = __webpack_require__(281);
 var PORT = process.env.PORT || 3000;
-var SERVER = 'undefined' || 0;
+var SERVER = config_1.SERVER_URL || 'http://localhost:3000';
 var app = (0, express_1.default)();
 app.use((0, compression_1.default)());
 // app.use(helmet({
@@ -1110,8 +1124,8 @@ app.use((0, compression_1.default)());
 app.use('/static', express_1.default.static('./dist/client'));
 app.get('/auth', function (req, res) {
     console.log('auth code', req.query.code);
-    axios_1.default.post('https://www.reddit.com/api/v1/access_token', "grant_type=authorization_code&code=" + req.query.code + "&redirect_uri=" + 'undefined' + "/auth", {
-        auth: { username: 'undefined', password: 'undefined' },
+    axios_1.default.post('https://www.reddit.com/api/v1/access_token', "grant_type=authorization_code&code=" + req.query.code + "&redirect_uri=" + config_1.SERVER_URL + "/auth", {
+        auth: { username: config_1.CLIENT_ID, password: config_1.CLIENT_PWD },
         headers: { 'Content-type': 'application/x-www-form-urlencoded' }
     })
         .then(function (_a) {
@@ -1887,9 +1901,10 @@ var Text_1 = __webpack_require__(9651);
 var userblock_less_1 = __importDefault(__webpack_require__(9992));
 var Icon_1 = __webpack_require__(8992);
 var Break_1 = __webpack_require__(2410);
+var config_1 = __webpack_require__(281);
 function UserBlock(_a) {
     var avatarSrc = _a.avatarSrc, username = _a.username, loading = _a.loading;
-    var hrefUrl = "https://www.reddit.com/api/v1/authorize?client_id=" + 'undefined' + "&response_type=code&state=random_string&redirect_uri=" + 'undefined' + "/auth&duration=permanent&scope=read submit identity";
+    var hrefUrl = "https://www.reddit.com/api/v1/authorize?client_id=" + config_1.CLIENT_ID + "&response_type=code&state=random_string&redirect_uri=" + config_1.SERVER_URL + "/auth&duration=permanent&scope=read submit identity";
     return (react_1.default.createElement("a", { href: hrefUrl, className: userblock_less_1.default.userBox },
         react_1.default.createElement("div", { className: userblock_less_1.default.avatarBox }, avatarSrc
             ? react_1.default.createElement("img", { src: avatarSrc, alt: "user avatar", className: userblock_less_1.default.avatarImage })
