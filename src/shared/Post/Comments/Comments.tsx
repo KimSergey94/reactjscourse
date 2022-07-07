@@ -38,7 +38,7 @@ export function Comments() {
   return (
     < div className={styles.container}>
       <SortComments />
-      <FormCommentsContainer name={data?.name} handleSubmit={handleSubmitForm} valueInput={value} />
+      <FormCommentsContainer name={data?.name} handleSubmit={handleSubmitForm} valueInput={value} handleChange={onChange}/>
       {/* <FormComments name={name} handleSubmit={handleSubmitForm} handleChange={onChange} valueInput={value} /> */}
       <ListComments list={list} />
     </div>

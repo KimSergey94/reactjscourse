@@ -1,3 +1,5 @@
+import { createEvent, createStore } from 'effector';
+import { useStore } from 'effector-react';
 import React, { ChangeEvent, useContext, useState } from 'react';
 import { generateRandomString } from '../../../../../utils/react/generateRandomIndex';
 import { userContext } from '../../../../context/userContext';
@@ -35,7 +37,18 @@ interface IFullListComments {
     id: string
   } [];
 }
+
+const updateComment = createEvent<string>();
+const $comment = createStore('Привет, Effector! ')
+  .on(updateComment, (_, newValue) => newValue);
+
+  $comment.watch((state)=>{
+    console.log(`state: ${state}`);
+  });
+  
 export function Comment({author, categoryLeague, commentText, avatarSrc, subCommentList = [], arrFullComments, id}: IComment) {
+  const value = useStore($comment);
+
   function handleClickedOut () {
     setVisibleForm(true);//false
   }
@@ -44,21 +57,21 @@ export function Comment({author, categoryLeague, commentText, avatarSrc, subComm
   }
   const [subComments, setSubCommentList] = useState(subCommentList);
   const [isVisibleForm , setVisibleForm] = useState(false);
-  const [value , setValue] = useState(`${author}, `);
+  // const [value , setValue] = useState(`${author}, `);
   const {data, loading } = useContext(userContext);
-  function submitForm (comment:string) {
+  function submitForm(comment:string) {
     if(!data?.name) {
       console.log('Нужно авторизоваться')
       return
     }
     setSubCommentList([...subComments, { autor: data?.name? data?.name : 'Неизвестный' , text: comment , category: 'Разработчик', avatarSrc: data?.iconImg ? data?.iconImg : '', id: generateRandomString()
   } ])
-  setValue('');
-  setVisibleForm(false)
+  updateComment('');
+  setVisibleForm(false);
   }
   
   function handleChange (e: ChangeEvent<HTMLTextAreaElement>) {
-    setValue(`${e.target.value}`)
+    updateComment(`${e.target.value}`);
   }
   return (
    <li className={`${styles.comment}`}>
@@ -80,7 +93,7 @@ export function Comment({author, categoryLeague, commentText, avatarSrc, subComm
     <div className={styles.text}>{commentText}</div>
     <CommentBar handleClickComment={handleClickComment}/>
     {isVisibleForm && (
-      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={value} handleSubmit={submitForm} name={data?.name}/>
+      <FormCommentsContainer handleClicked={handleClickedOut} valueInput={value} handleSubmit={submitForm} name={data?.name} handleChange={handleChange} />
       // <FormComments handleClicked={handleClickedOut} valueInput={`${value}`} handleSubmit={submitForm} handleChange={handleChange}/>
     )}
     <ul className={styles.list}>
