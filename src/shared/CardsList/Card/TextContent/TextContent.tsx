@@ -17,7 +17,7 @@ export function TextContent(props:ITextContentProps){
         <div className={styles.textContent}>
         <div className={styles.metaData}>
             <div className={styles.userLink}>
-                <img className={styles.avatar} src={props.imgLink} alt="avatar" />
+                <img className={styles.avatar} src={props.imgLink === 'self' ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsunZB72U_wM9FqVM5I5cioBbzFUZtKw8bng&usqp=CAU' : props.imgLink} alt="avatar" />
                 <a href="#user-url" className={styles.username}>{props.displayName}</a>
             </div>
             <span className={styles.createdAt}><span className={styles.publishedLabel}>опубликовано </span>{props.postedTimeAgo}</span>

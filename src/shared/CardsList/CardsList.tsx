@@ -32,14 +32,13 @@ export function CardsList() {
                 {
                     headers: {Authorization: `bearer ${token}`}, 
                     params: {
-                        limit:2,
+                        limit:5,
                         after:nextAfter,
                     }
                 });
                 if(after == nextAfter){alert(11111);}
                 const cardPropsTemp: ICardProps[] = [];
                 children.map((x:any)=>{
-                    console.log(x);
                     const cardPropTemp: ICardProps = {
                         content: {
                             displayName: x.data.author || x.data.name,
@@ -64,11 +63,11 @@ export function CardsList() {
                 setNextAfter(after);
                 setCardPosts(prevChildren => prevChildren.concat(...cardPropsTemp));
                 dispatch(updateCardProps(cardProps));
-                console.log('cardProps cardPropsList', cardProps, cardPropsList);
             }
             catch(err){
                 console.error(err);
-                setErrorLoading(String(err));
+                //setErrorLoading(String(err));
+                setErrorLoading('Не удалось загрузить посты.');
             }
 
             setLoading(false);

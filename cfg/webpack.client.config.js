@@ -7,11 +7,16 @@ const IS_DEV = NODE_ENV === 'development';
 const IS_PROD = NODE_ENV === 'production';
 const GLOBAL_CSS_REGEXP = /\.global\.less$/;
 const DEV_PLUGINS = [ new HotModuleReplacementPlugin(), new CleanWebpackPlugin()];
-const COMMON_PLUGINS = [new DefinePlugin({'process.env.CLIENT_ID': `'${process.env.CLIENT_ID}'`})]
+const COMMON_PLUGINS = [new DefinePlugin({'process.env.CLIENT_ID': `'${process.env.CLIENT_ID}'`}), new DefinePlugin({'process.env.SERVER_URL': `'${process.env.SERVER_URL}'`}), new DefinePlugin({'process.env.CLIENT_PWD': `'${process.env.CLIENT_PWD}'`})]
 
 function setupDevtool(){
     if(IS_DEV) return 'eval';
     if(IS_PROD) return false;
+}
+function getEntry(){
+    if(IS_PROD) return [path.resolve(__dirname, '../src/client/index.jsx')];
+    return [path.resolve(__dirname, '../src/client/index.jsx'),
+    'webpack-hot-middleware/client?path=http://localhost:3001/static/__webpack_hmr'];
 }
 
 module.exports = {
@@ -25,10 +30,7 @@ module.exports = {
         }
     },
     mode: NODE_ENV ? NODE_ENV : 'development',
-    entry: [
-        path.resolve(__dirname, '../src/client/index.jsx'),
-        'webpack-hot-middleware/client?path=http://localhost:3001/static/__webpack_hmr'
-    ],
+    entry: getEntry(),
     output: {
         path: path.resolve(__dirname, '../dist/client'),
         filename: 'client.js',

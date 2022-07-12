@@ -3,15 +3,19 @@ import {EColors, Text} from '../../../Text';
 import styles from './userblock.less';
 import { EIconName, Icon } from "../../../Icons/Icon";
 import { Break } from "../../../Break/Break";
+import {CLIENT_ID,SERVER_URL } from '../../../../../config'
 
 interface IUserBlockProps {
     avatarSrc?: string
     username?: string
     loading?: boolean
 }
+
+
 export function UserBlock({avatarSrc, username, loading}: IUserBlockProps){
+    const hrefUrl = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&state=random_string&redirect_uri=${SERVER_URL}/auth&duration=permanent&scope=read submit identity`;
     return(
-        <a href="https://www.reddit.com/api/v1/authorize?client_id=vVMpMj5mCEsVK48LwY5AUw&response_type=code&state=random_string&redirect_uri=http://localhost:3000/auth&duration=permanent&scope=read submit identity"
+        <a href={hrefUrl}
         className={styles.userBox}>
             <div className={styles.avatarBox}>
                 {avatarSrc
