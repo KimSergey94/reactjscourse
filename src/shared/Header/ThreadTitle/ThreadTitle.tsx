@@ -1,8 +1,11 @@
 import React from "react";
 import styles from './threadtitle.less';
+import img from '../../../assets/images/logo.png';
 
 export function ThreadTitle(){
     return(
-        <h1 className={styles.threadTitle}>Header</h1>
+        <div className={styles.threadTitle}>
+            <img src={img} className={styles.threadLogo} />
+        </div>
     );
 }

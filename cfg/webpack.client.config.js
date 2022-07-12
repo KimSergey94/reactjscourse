@@ -69,6 +69,10 @@ module.exports = {
             exclude: GLOBAL_CSS_REGEXP
         },
         {
+            test: /\.(png|jpe?g|gif)$/i,
+            use: ['file-loader']
+        },
+        {
             test: GLOBAL_CSS_REGEXP,
             use: ['style-loader', 'css-loader']
         }
