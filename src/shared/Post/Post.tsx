@@ -28,7 +28,6 @@ interface IPost{
     avatar?: string,
 }
 export function Post(props: IPost){
-
   const params = useParams();
 
     const ref = useRef<HTMLDivElement>(null);
@@ -36,10 +35,10 @@ export function Post(props: IPost){
     const token = useSelector<RootState>(state=> state.token);
     const [commentsLoading, setCommentsLoading] = useState(false);
     const cardPropsList = useSelector<RootState, ICardProps[]>(state => state.cardProps);
+    
     useEffect(()=> {
         function handleClick(event: MouseEvent){
             if(event.target instanceof Node && !ref.current?.contains(event.target))
-                //props.onClose?.();
                 navigate('/');
         }
 
@@ -62,24 +61,15 @@ export function Post(props: IPost){
 
         document.addEventListener('click', handleClick);
         return () => {
-          console.log('post comments load props.cardId',props.cardId);
-          console.log('params',params);
-        
             document.removeEventListener('click', handleClick);
         }
     }, []);
-
     
-    console.log('2post comments load props.cardId',props.cardId);
-    console.log('2params',params);
-  
-
-    //const node = document.getElementById(`card${props.cardId}`);
     const node = document.querySelector('#modal_root');
     if(!node) return null
 
     return ReactDOM.createPortal((
-        <div id={'post'} ref={ref} className={styles.post}>
+        <div id='post' ref={ref} className={styles.post}>
         <button onClick={props.onClose} className={styles.buttonReturn}><ReturnArrow/></button>
        <div>
          <PostHeader cardId={props.cardId} idContainerResultMenu={'post'} />

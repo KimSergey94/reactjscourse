@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 import { RootState, updateCardProps } from "../../store/store";
 // import { postsContext } from "../context/postsContext";
 import { Card, ICardProps } from "./Card/Card";
@@ -107,29 +108,32 @@ export function CardsList() {
     }, [bottomOfList.current, nextAfter, token, loadMoreTrigger]);
 
     return (
-        <ul className={styles.cardsList}>
-            {cardProps?.length === 0 && !loading && !errorLoading && (
-                <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
-            )}
+        <>
+            <ul className={styles.cardsList}>
+                {cardProps?.length === 0 && !loading && !errorLoading && (
+                    <div style={{textAlign: 'center'}}>Нет ни одного поста</div>
+                )}
 
-            {cardProps?.map((x) => <Card key={x.cardId} content={x.content} preview={x.preview} controls={x.controls} cardId={x.cardId}/>)}
-            {/* {posts?.map((x) => <Card key={x.data.id} content={x.content} preview={x.preview} controls={x.controls} cardId={posts.indexOf(x.data.id)}/>)} */}
+                {cardProps?.map((x) => <Card key={x.cardId} content={x.content} preview={x.preview} controls={x.controls} cardId={x.cardId}/>)}
+                {/* {posts?.map((x) => <Card key={x.data.id} content={x.content} preview={x.preview} controls={x.controls} cardId={posts.indexOf(x.data.id)}/>)} */}
 
-            <div ref={bottomOfList}/>
-            {loading && (
-                <div style={{textAlign: 'center'}}>Загрузка...</div>
-            )}
-            {showLoadBtn && (
-                <div style={{display:'flex', justifyContent:'center'}}>
-                    <button style={{textAlign: 'center'}} onClick={() => setLoadMoreTrigger(true)}>Загрузить еще</button>
-                </div>
-            )}
+                <div ref={bottomOfList}/>
+                {loading && (
+                    <div style={{textAlign: 'center'}}>Загрузка...</div>
+                )}
+                {showLoadBtn && (
+                    <div style={{display:'flex', justifyContent:'center'}}>
+                        <button style={{textAlign: 'center'}} onClick={() => setLoadMoreTrigger(true)}>Загрузить еще</button>
+                    </div>
+                )}
 
-            {errorLoading && (
-                <div role="alert" style={{textAlign: 'center'}}>
-                    {errorLoading}
-                </div>
-            )}
-        </ul>
+                {errorLoading && (
+                    <div role="alert" style={{textAlign: 'center'}}>
+                        {errorLoading}
+                    </div>
+                )}
+            </ul>
+            <Outlet />
+        </>
     );
 }

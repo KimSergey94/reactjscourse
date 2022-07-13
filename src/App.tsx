@@ -46,18 +46,19 @@ function AppComponent() {
     const [displayType] = useDisplayType();
     const MainRoutes = () => {
         return(
-        <>
-            <Header/>
-            <Content>
-            <Routes>
-                <Route path="/posts/" element={<CardsList />} />
-                <Route path="/posts/:id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
-                <Route path="/auth" element={<Navigate to="/posts" />} />
-                <Route path="/" element={<Navigate to="/posts" />} />
-                <Route path="*" element={<Navigate replace to="/notfound" />} />
-            </Routes>
-            </Content>
-        </>
+            <>
+                <Header/>
+                <Content>
+                <Routes>
+                    <Route path="posts" element={<CardsList />}>
+                        <Route path=":id" element={<Post title={''} author={''} cardId={''} onClose={()=>{}}/>} />
+                    </Route>
+                    <Route path="/auth" element={<Navigate to="/posts" />} />
+                    <Route path="/" element={<Navigate to="/posts" />} />
+                    <Route path="*" element={<Navigate replace to="/notfound" />} />
+                </Routes>
+                </Content>
+            </>
         )
     }
     
