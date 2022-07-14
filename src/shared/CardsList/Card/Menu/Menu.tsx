@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { displayTypeContext, TDisplayType } from '../../../context/displayTypeContext';
+import React from 'react';
 import { Dropdown } from '../../../Dropdown';
 import { EIconName, Icon } from '../../../Icons/Icon';
 import { EColors, Text } from '../../../Text/Text';
@@ -32,7 +31,5 @@ export function Menu (props: IMenuProps) {
             </div>
             </Dropdown>
         </div>
-
-
     );
 }

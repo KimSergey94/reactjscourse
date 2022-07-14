@@ -1,14 +1,46 @@
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { RootState, updateCardProps } from "../../store/store";
-// import { postsContext } from "../context/postsContext";
 import { Card, ICardProps } from "./Card/Card";
 import styles from './cardslist.less';
 
+export interface IRedditResponseData{
+    data: IRedditListingResponseData;
+}
+export interface IRedditListingResponseData {
+    data: {
+        after: string;
+        before: string;
+        children: IRedditT3ResponseData[];
+        geo_filter: string;
+    };
+    kind: string;
+}
+export interface IRedditT3ResponseData{
+    data: IRedditData;
+    kind: string;
+}
+export interface IRedditData {
+    author: string;
+    body: string;
+    body_html: string;
+    created: string;
+    created_utc: string;
+    id: string;
+    permalink: string;
+    subreddit: string;
+    name: string;
+    title: string;
+    thumbnail: string;
+    ups: number;
+    score: number;
+    replies: IRedditListingResponseData;
+}
+
+
 export function CardsList() {
-    // const posts = useContext(postsContext);
     const token = useSelector<RootState>(state=> state.token);
     const [loading, setLoading] = useState(false);
     const [errorLoading, setErrorLoading] = useState('');
@@ -29,7 +61,7 @@ export function CardsList() {
             setErrorLoading('');
 
             try{
-                const {data: {data: {after, children}}} = await axios.get('https://oauth.reddit.com/rising/', 
+                const risingResponse:IRedditResponseData = await axios.get('https://oauth.reddit.com/rising/', 
                 {
                     headers: {Authorization: `bearer ${token}`}, 
                     params: {
@@ -37,10 +69,9 @@ export function CardsList() {
                         after:nextAfter,
                     }
                 });
-                if(after == nextAfter){alert(11111);}
-                const cardPropsTemp: ICardProps[] = [];
-                children.map((x:any)=>{
-                    const cardPropTemp: ICardProps = {
+                if(risingResponse.data.data.after == nextAfter) alert(11111);
+                const cardPropsTemp: ICardProps[] = risingResponse.data.data.children?.map((x)=>{
+                    return {
                         content: {
                             displayName: x.data.author || x.data.name,
                             postedTimeAgo: x.data.created,
@@ -59,15 +90,13 @@ export function CardsList() {
                         },
                         cardId: x.data.id
                     };
-                    cardPropsTemp.push(cardPropTemp);
                 });
-                setNextAfter(after);
+                setNextAfter(risingResponse.data.data.after);
                 setCardPosts(prevChildren => prevChildren.concat(...cardPropsTemp));
                 dispatch(updateCardProps(cardProps));
             }
             catch(err){
                 console.error(err);
-                //setErrorLoading(String(err));
                 setErrorLoading('Не удалось загрузить посты.');
             }
 
@@ -115,7 +144,6 @@ export function CardsList() {
                 )}
 
                 {cardProps?.map((x) => <Card key={x.cardId} content={x.content} preview={x.preview} controls={x.controls} cardId={x.cardId}/>)}
-                {/* {posts?.map((x) => <Card key={x.data.id} content={x.content} preview={x.preview} controls={x.controls} cardId={posts.indexOf(x.data.id)}/>)} */}
 
                 <div ref={bottomOfList}/>
                 {loading && (

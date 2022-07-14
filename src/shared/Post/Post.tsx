@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams  } from "react-router-dom";
 import { RootState } from '../../store/store';
+import { IRedditResponseData } from '../CardsList';
 import { ICardProps } from '../CardsList/Card';
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter';
 import { ReturnArrow } from '../Icons/ReturnArrow';
@@ -28,28 +29,32 @@ interface IPost{
     avatar?: string,
 }
 export function Post(props: IPost){
-  const params = useParams();
-
+    const {id} = useParams();
     const ref = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const token = useSelector<RootState>(state=> state.token);
     const [commentsLoading, setCommentsLoading] = useState(false);
     const cardPropsList = useSelector<RootState, ICardProps[]>(state => state.cardProps);
+    const [nextAfter, setNextAfter] = useState('');
     
     useEffect(()=> {
         function handleClick(event: MouseEvent){
             if(event.target instanceof Node && !ref.current?.contains(event.target))
-                navigate('/');
+                navigate('/posts');
         }
 
         async function load(){
           setCommentsLoading(true);
           try{
-            const data = await axios.get(`https://oauth.reddit.com/comments/${props.cardId}`, 
+            const commentsData:IRedditResponseData  = await axios.get(`https://oauth.reddit.com/comments/${id}`, 
             {
-                headers: {Authorization: `bearer ${token}`}
+                headers: {Authorization: `bearer ${token}`},
+                params: {
+                  limit:5,
+                  after:nextAfter,
+              }
             });
-            console.log('data', data);
+            console.log('commentsData', commentsData, id);
           }
           catch(err){
             console.error(err);

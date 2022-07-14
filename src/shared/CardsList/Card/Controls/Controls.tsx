@@ -3,8 +3,8 @@ import styles from './controls.less';
 import { KarmaCounter } from './KarmaCounter';
 
 export interface IControlsProps{
-    karmaValue: string;
-    commentsNumber: string;
+    karmaValue: number;
+    commentsNumber: number;
 }
 export function Controls(props: IControlsProps){
     return (
