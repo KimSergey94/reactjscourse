@@ -48,6 +48,7 @@
     "less-loader": "^10.2.0",
     "mobx": "^6.6.1",
     "mobx-react-lite": "^3.4.0",
+    "moment": "^2.29.4",
     "nodemon": "^2.0.14",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",

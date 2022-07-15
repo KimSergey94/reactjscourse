@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams  } from "react-router-dom";
 import { RootState } from '../../store/store';
-import { IRedditResponseData } from '../CardsList';
+import { IRedditRisingResponseData } from '../CardsList';
 import { ICardProps } from '../CardsList/Card';
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter';
 import { ReturnArrow } from '../Icons/ReturnArrow';
@@ -18,6 +18,9 @@ import { ButtonPostHide } from './PostControls/ButtonPostHide';
 import { ButtonPostSave } from './PostControls/ButtonPostSave';
 import { ButtonPostShare } from './PostControls/ButtonPostShare';
 import { PostHeader } from './PostHeader';
+import {IRedditData, IRedditListingResponseData, IRedditT3ResponseData} from '../CardsList/CardsList';
+import moment from 'moment';
+import avatar from '../../assets/images/avatar.jpg';
 
 interface IPost{
     title: string,
@@ -28,15 +31,38 @@ interface IPost{
     cardId: string,
     avatar?: string,
 }
+export interface IRedditCommentsResponseData{
+  data: IRedditListingResponseData[];
+}
+interface IPostComment{
+  text: string;
+  children?: IPostComment[];
+}
 export function Post(props: IPost){
+    const navigate = useNavigate();
     const {id} = useParams();
     const ref = useRef<HTMLDivElement>(null);
-    const navigate = useNavigate();
     const token = useSelector<RootState>(state=> state.token);
-    const [commentsLoading, setCommentsLoading] = useState(false);
-    const cardPropsList = useSelector<RootState, ICardProps[]>(state => state.cardProps);
     const [nextAfter, setNextAfter] = useState('');
-    
+    const [postInfo, setPostInfo] = useState<IRedditData>({} as IRedditData);
+    const [postComments, setPostComments] = useState<IPostComment[]>([]);
+    const [commentsLoading, setCommentsLoading] = useState(false);
+
+    function iterateChildren(x:IRedditT3ResponseData[]):IPostComment[]
+    {
+      var result:IPostComment[] = []; 
+      x.forEach(xx=>{
+        let comment:IPostComment = {
+          text: xx.data.body,
+          children: []
+        };
+        if(xx.data?.replies?.data?.children)
+          comment.children = iterateChildren(xx.data?.replies?.data?.children);
+        result.push(comment);
+      });
+      return result;
+    }    
+
     useEffect(()=> {
         function handleClick(event: MouseEvent){
             if(event.target instanceof Node && !ref.current?.contains(event.target))
@@ -46,7 +72,7 @@ export function Post(props: IPost){
         async function load(){
           setCommentsLoading(true);
           try{
-            const commentsData:IRedditResponseData  = await axios.get(`https://oauth.reddit.com/comments/${id}`, 
+            const commentsData:IRedditCommentsResponseData  = await axios.get(`https://oauth.reddit.com/comments/${id}`, 
             {
                 headers: {Authorization: `bearer ${token}`},
                 params: {
@@ -54,7 +80,10 @@ export function Post(props: IPost){
                   after:nextAfter,
               }
             });
-            console.log('commentsData', commentsData, id);
+            if(commentsData?.data[0]?.data.children[0]?.data) setPostInfo(commentsData?.data[0]?.data.children[0]?.data);
+            if(commentsData?.data[1]?.data?.children) setPostComments(iterateChildren(commentsData?.data[1]?.data.children));
+
+            console.log('postInfo',commentsData?.data[0]?.data.children[0]?.data);
           }
           catch(err){
             console.error(err);
@@ -75,6 +104,9 @@ export function Post(props: IPost){
 
     return ReactDOM.createPortal((
         <div id='post' ref={ref} className={styles.post}>
+
+          {postComments.map((x)=> <span>{x.text}</span>)}
+
         <button onClick={props.onClose} className={styles.buttonReturn}><ReturnArrow/></button>
        <div>
          <PostHeader cardId={props.cardId} idContainerResultMenu={'post'} />
@@ -82,19 +114,19 @@ export function Post(props: IPost){
        <div className={styles.textContent}>
        <div className={styles.metaData}>
          <div className={styles.userLink}>
-           <img className={styles.avatar} src="https://cdn.dribbble.com/users/1210339/screenshots/15111625/media/e92f64535c708861a43715f61efe3a97.jpg" alt="avatar" />
+           <img className={styles.avatar} src={avatar} alt="avatar" />
            <a href="#user-url" className={styles.username}>{props.author}</a>
          </div>
          <span className={styles.createdAt}>
            <span className={styles.publishedLabel}>опубликовано</span>
-           4 часа назад</span>
+           {postInfo.created_utc ? moment.unix(parseInt(postInfo.created_utc)).fromNow() : ''}</span>
            <span className={styles.category}>{props.category}</span>
        </div>
        <h2 className={styles.title}>
-           {props.title}
+           {postInfo.title}
        </h2>
        </div>
-     <PostCommentContent />
+     <PostCommentContent image={postInfo.thumbnail}/>
      <PostControls>
        <div className={styles.karma}>
        <KarmaCounter />

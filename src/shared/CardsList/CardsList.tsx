@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { RootState, updateCardProps } from "../../store/store";
+import { RootState } from "../../store/store";
 import { Card, ICardProps } from "./Card/Card";
 import styles from './cardslist.less';
 
-export interface IRedditResponseData{
+export interface IRedditRisingResponseData{
     data: IRedditListingResponseData;
 }
 export interface IRedditListingResponseData {
@@ -48,9 +48,7 @@ export function CardsList() {
     const [intersectionCounter, setIntersectionCounter] = useState(-1);
     const [showLoadBtn, setShowLoadBtn] = useState(false);
     const [loadMoreTrigger, setLoadMoreTrigger] = useState(false);
-    const dispatch = useDispatch();
     const [cardProps, setCardPosts] = useState<ICardProps[]>([]);
-    const cardPropsList = useSelector<RootState, ICardProps[]>(state => state.cardProps);
 
     
     const bottomOfList = useRef<HTMLDivElement>(null);
@@ -61,7 +59,7 @@ export function CardsList() {
             setErrorLoading('');
 
             try{
-                const risingResponse:IRedditResponseData = await axios.get('https://oauth.reddit.com/rising/', 
+                const risingResponse:IRedditRisingResponseData = await axios.get('https://oauth.reddit.com/rising/', 
                 {
                     headers: {Authorization: `bearer ${token}`}, 
                     params: {
@@ -69,6 +67,8 @@ export function CardsList() {
                         after:nextAfter,
                     }
                 });
+            console.log('risingResponse', risingResponse);
+
                 if(risingResponse.data.data.after == nextAfter) alert(11111);
                 const cardPropsTemp: ICardProps[] = risingResponse.data.data.children?.map((x)=>{
                     return {
@@ -93,7 +93,6 @@ export function CardsList() {
                 });
                 setNextAfter(risingResponse.data.data.after);
                 setCardPosts(prevChildren => prevChildren.concat(...cardPropsTemp));
-                dispatch(updateCardProps(cardProps));
             }
             catch(err){
                 console.error(err);

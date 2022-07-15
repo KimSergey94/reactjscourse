@@ -38,16 +38,8 @@ export const setToken: ActionCreator<SetTokenAction> = (token:string) => ({
     type: SET_TOKEN, 
     token,
 });
-const UPDATE_CARD_PROPS = 'UPDATE_CARD_PROPS';
-type UpdateCardPropsAction = {
-    type: typeof UPDATE_CARD_PROPS;
-    cardProps: ICardProps[];
-}
-export const updateCardProps: ActionCreator<UpdateCardPropsAction> = (cardProps) => ({
-    type: UPDATE_CARD_PROPS, 
-    cardProps
-});
-type MyAction = UpdateCommentAction | SetTokenAction | MeRequestAction | MeRequestSuccessAction | MeRequestFailureAction | UpdateCardPropsAction;
+
+type MyAction = UpdateCommentAction | SetTokenAction | MeRequestAction | MeRequestSuccessAction | MeRequestFailureAction;
 
 
 export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, action) => {
@@ -69,11 +61,6 @@ export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, 
             return {
                 ...state,
                 me: meReducer(state.me, action)
-            };
-        case UPDATE_CARD_PROPS:
-            return {
-                ...state,
-                cardProps: action.cardProps,
             };
         default: return state;
     }
