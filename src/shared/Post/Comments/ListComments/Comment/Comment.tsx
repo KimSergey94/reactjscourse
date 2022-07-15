@@ -13,11 +13,11 @@ const updateComment = createEvent<string>();
 const $comment = createStore('')
   .on(updateComment, (_, newValue) => newValue);
 
-  $comment.watch((state)=>{
-    console.log(`state: ${state}`);
-  });
-  
-export function Comment({author, text, category, avatarSrc, children, id, created_utc}: ICommentsList) {
+
+interface ICommentProps {
+  comment: ICommentsList;
+}  
+export function Comment(props: ICommentProps) {
   const value = useStore($comment);
 
   function handleClickedOut () {
@@ -25,11 +25,11 @@ export function Comment({author, text, category, avatarSrc, children, id, create
   }
   function handleClickComment () {
    setVisibleForm(!isVisibleForm);
-   updateComment(`${author}, `);
+   updateComment(`${props.comment.author}, `);
   }
-  const [subComments, setSubCommentList] = useState(children);
+  const [subComments] = useState(props.comment.children);
   const [isVisibleForm , setVisibleForm] = useState(false);
-  const {data, loading } = useContext(userContext);
+  const {data} = useContext(userContext);
   
   function submitForm(comment:string) {
     if(!data?.name) {
@@ -48,28 +48,28 @@ export function Comment({author, text, category, avatarSrc, children, id, create
   return (
    <li className={`${styles.comment}`}>
      <div className={styles.header}>
-    <span className={styles.category}>{category}</span>
+    <span className={styles.category}>{props.comment.category}</span>
    <div className={styles.metaData}>
      <div className={styles.userLink}>
-     {avatarSrc
-          ? <img  src={avatarSrc} alt="user avatar" className={styles.avatar} />
+     {props.comment.avatarSrc
+          ? <img  src={props.comment.avatarSrc} alt="user avatar" className={styles.avatar} />
           : <IconAnon />
      }
-       <a href="#user-url" className={styles.username}>{author}</a>
+       <a href="#user-url" className={styles.username}>{props.comment.author}</a>
      </div>
      <span className={styles.createdAt}>
        <span className={styles.publishedLabel}>опубликовано</span>
-       {created_utc ? moment.unix(parseInt(created_utc)).fromNow() : ''}</span>
+       {props.comment.created_utc ? moment.unix(parseInt(props.comment.created_utc)).fromNow() : ''}</span>
   </div>
   </div>
-    <div className={styles.text}>{text}</div>
-    <CommentBar handleClickComment={handleClickComment}/>
+    <div className={styles.text}>{props.comment.text}</div>
+    <CommentBar handleClickComment={handleClickComment} score={props.comment.score}/>
     {isVisibleForm && (
       <FormCommentsContainer handleClicked={handleClickedOut} valueInput={value} handleSubmit={submitForm} name={data?.name} handleChange={handleChange} />
     )}
     <ul className={styles.list}>
     {subComments.map(comment => (
-        <Comment id={comment.id} key={comment.id} avatarSrc={comment.avatarSrc} text={comment.text} author={comment.author} category={comment.category} children={comment.children} created_utc={comment.created_utc} />
+        <Comment  key={comment.id} comment={comment} />
       ))}
     </ul>
    </li>

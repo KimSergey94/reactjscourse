@@ -60,6 +60,7 @@ export function Post(props: IPost){
             avatarSrc: xx.data.thumbnail,
             id: xx.data.id,
             created_utc: xx.data.created_utc,
+            score: xx.data.score,
           };
           if(xx.data?.replies?.data?.children)
             comment.children = iterateChildren(xx.data?.replies?.data?.children);
@@ -88,8 +89,6 @@ export function Post(props: IPost){
             });
             if(commentsData?.data[0]?.data.children[0]?.data) setPostInfo(commentsData?.data[0]?.data.children[0]?.data);
             if(commentsData?.data[1]?.data?.children) setCommentsList(iterateChildren(commentsData?.data[1]?.data.children));
-
-            console.log('postInfo',commentsData?.data[0]?.data.children[0]?.data);
           }
           catch(err){
             console.error(err);
@@ -135,9 +134,9 @@ export function Post(props: IPost){
      <PostCommentContent image={postInfo.thumbnail}/>
      <PostControls>
        <div className={styles.karma}>
-       <KarmaCounter />
+       <KarmaCounter score={postInfo.score}/>
        </div>
-       <ButtonComment />
+       <ButtonComment totalComments={iterateAndCountComments(commentsList)}/>
        <div className={styles.buttonGroup}>
        <ButtonPostShare />
        <ButtonPostHide />
@@ -151,3 +150,11 @@ export function Post(props: IPost){
    ), node);
  }
  
+ function iterateAndCountComments(commentsList:ICommentsList[]):number{
+  var result = 0;
+  commentsList.forEach(x=>{
+    result++;
+    if(x.children) result = result + iterateAndCountComments(x.children);
+  });
+  return result;
+ }

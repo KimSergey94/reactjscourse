@@ -16,6 +16,7 @@ export interface ICommentsList{
   children: ICommentsList[];
   id: string;
   created_utc: string;
+  score: number;
 } 
 export interface ICommentsProps{
   commentsList: ICommentsList[];

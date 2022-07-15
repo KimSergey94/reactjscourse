@@ -8,14 +8,15 @@ import { CommentButtonAnswer } from './CommentButtonAnswer';
 import { CommentKarmaCounter } from './CommentKarmaCounter';
 
 interface ICommentBar {
-  statistic?: string,
-  handleClickComment: () => void
+  statistic?: string;
+  handleClickComment: () => void;
+  score:number;
 }
-export function CommentBar({statistic='0', handleClickComment}: ICommentBar) {
+export function CommentBar({statistic='0', handleClickComment, score}: ICommentBar) {
   return (
     <div className={styles.container}>
       <div className={styles.bar}>
-      <CommentKarmaCounter />
+      <CommentKarmaCounter score={score}/>
       <CommentButtonAnswer handleClick={handleClickComment} />
       <CommentAction />
       <ButtonCommentShared />

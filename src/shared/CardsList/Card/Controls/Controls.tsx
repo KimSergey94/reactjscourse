@@ -9,7 +9,7 @@ export interface IControlsProps{
 export function Controls(props: IControlsProps){
     return (
         <div className={styles.controls}>
-            <KarmaCounter />
+            <KarmaCounter score={props.karmaValue}/>
 
             <button className={styles.commentsButton}>
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

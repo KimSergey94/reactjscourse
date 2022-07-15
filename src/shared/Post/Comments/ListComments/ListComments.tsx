@@ -9,7 +9,7 @@ export function ListComments({commentsList}: ICommentsProps) {
     <div className={styles.container}>
       <ul className={styles.list}>
       {commentsList.map(comment => (
-        <Comment key={comment.id} id={comment.id} avatarSrc={comment.avatarSrc} text={comment.text} author={comment.author} category={comment.category} children={comment.children} created_utc={comment.created_utc}/>
+        <Comment key={comment.id} comment={comment} />
       ))}
       </ul>
     </div>
