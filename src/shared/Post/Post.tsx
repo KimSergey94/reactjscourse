@@ -4,11 +4,9 @@ import ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams  } from "react-router-dom";
 import { RootState } from '../../store/store';
-import { IRedditRisingResponseData } from '../CardsList';
-import { ICardProps } from '../CardsList/Card';
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter';
 import { ReturnArrow } from '../Icons/ReturnArrow';
-import { Comments } from './Comments';
+import { Comments, ICommentsList } from './Comments';
 import styles from './post.less';
 import { PostCommentContent } from './PostContent';
 import { PostControls } from './PostControls';
@@ -46,19 +44,27 @@ export function Post(props: IPost){
     const [nextAfter, setNextAfter] = useState('');
     const [postInfo, setPostInfo] = useState<IRedditData>({} as IRedditData);
     const [postComments, setPostComments] = useState<IPostComment[]>([]);
+    const [commentsList, setCommentsList] = useState<ICommentsList[]>([]);
     const [commentsLoading, setCommentsLoading] = useState(false);
 
-    function iterateChildren(x:IRedditT3ResponseData[]):IPostComment[]
+    function iterateChildren(x:IRedditT3ResponseData[]):ICommentsList[]
     {
-      var result:IPostComment[] = []; 
+      var result:ICommentsList[] = []; 
       x.forEach(xx=>{
-        let comment:IPostComment = {
-          text: xx.data.body,
-          children: []
-        };
-        if(xx.data?.replies?.data?.children)
-          comment.children = iterateChildren(xx.data?.replies?.data?.children);
-        result.push(comment);
+        if(xx.data.body){
+          let comment:ICommentsList = {
+            text: xx.data.body,
+            children: [],
+            author: xx.data.author,
+            category: xx.data.subreddit,
+            avatarSrc: xx.data.thumbnail,
+            id: xx.data.id,
+            created_utc: xx.data.created_utc,
+          };
+          if(xx.data?.replies?.data?.children)
+            comment.children = iterateChildren(xx.data?.replies?.data?.children);
+          result.push(comment);
+        }
       });
       return result;
     }    
@@ -81,7 +87,7 @@ export function Post(props: IPost){
               }
             });
             if(commentsData?.data[0]?.data.children[0]?.data) setPostInfo(commentsData?.data[0]?.data.children[0]?.data);
-            if(commentsData?.data[1]?.data?.children) setPostComments(iterateChildren(commentsData?.data[1]?.data.children));
+            if(commentsData?.data[1]?.data?.children) setCommentsList(iterateChildren(commentsData?.data[1]?.data.children));
 
             console.log('postInfo',commentsData?.data[0]?.data.children[0]?.data);
           }
@@ -140,7 +146,7 @@ export function Post(props: IPost){
        </div>
        <div className={styles.textStatistic}>{67} %<span className={styles.hideMobile}>проголосовали</span></div>
        </PostControls>
-     <Comments />
+     <Comments commentsList={commentsList} />
      </div>
    ), node);
  }
