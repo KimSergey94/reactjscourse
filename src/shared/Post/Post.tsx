@@ -36,20 +36,13 @@ interface IPost {
 export interface IRedditCommentsResponseData {
   data: IRedditListingResponseData[]
 }
-interface IPostComment {
-  text: string
-  children?: IPostComment[]
-}
 export function Post(props: IPost) {
   const navigate = useNavigate()
   const { id } = useParams()
   const ref = useRef<HTMLDivElement>(null)
   const token = useSelector<RootState>((state) => state.token)
-  const [nextAfter, setNextAfter] = useState('')
   const [postInfo, setPostInfo] = useState<IRedditData>({} as IRedditData)
-  const [postComments, setPostComments] = useState<IPostComment[]>([])
   const [commentsList, setCommentsList] = useState<ICommentsList[]>([])
-  const [commentsLoading, setCommentsLoading] = useState(false)
 
   function iterateChildren(x: IRedditT3ResponseData[]): ICommentsList[] {
     var result: ICommentsList[] = []
@@ -80,7 +73,6 @@ export function Post(props: IPost) {
     }
 
     async function load() {
-      setCommentsLoading(true)
       try {
         const commentsData: IRedditCommentsResponseData = await axios.get(
           `https://oauth.reddit.com/comments/${id}`,
@@ -88,7 +80,6 @@ export function Post(props: IPost) {
             headers: { Authorization: `bearer ${token}` },
             params: {
               limit: 5,
-              after: nextAfter,
             },
           }
         )
@@ -99,8 +90,6 @@ export function Post(props: IPost) {
       } catch (err) {
         console.error(err)
       }
-
-      setCommentsLoading(false)
     }
     load()
 
@@ -115,10 +104,6 @@ export function Post(props: IPost) {
 
   return ReactDOM.createPortal(
     <div id="post" ref={ref} className={styles.post}>
-      {postComments.map((x) => (
-        <span>{x.text}</span>
-      ))}
-
       <button onClick={props.onClose} className={styles.buttonReturn}>
         <ReturnArrow />
       </button>
