@@ -68,7 +68,7 @@ export function CardsList() {
           }
         )
 
-        if (risingResponse.data.data.after == nextAfter) alert(11111)
+        if (risingResponse.data.data.after === nextAfter) alert(11111)
         const cardPropsTemp: ICardProps[] =
           risingResponse.data.data.children?.map((x) => {
             return {
@@ -91,7 +91,9 @@ export function CardsList() {
             }
           })
         setNextAfter(risingResponse.data.data.after)
-        setCardPosts((prevChildren) => prevChildren.concat(...cardPropsTemp))
+        setCardPosts((prevChildren) =>
+          mergeCardPropsArrays(prevChildren, cardPropsTemp)
+        )
       } catch (err) {
         console.error(err)
         setErrorLoading('Не удалось загрузить посты.')
@@ -176,4 +178,15 @@ export function CardsList() {
       <Outlet />
     </>
   )
+}
+
+function mergeCardPropsArrays(
+  currentArray: ICardProps[],
+  newArray: ICardProps[]
+): ICardProps[] {
+  var indexes = currentArray.map((x) => x.cardId)
+  return [
+    ...currentArray,
+    ...newArray.filter((x) => !indexes.includes(x.cardId)),
+  ]
 }
