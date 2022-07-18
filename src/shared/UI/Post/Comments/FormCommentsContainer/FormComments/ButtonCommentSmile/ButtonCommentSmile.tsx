@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconSmile } from '../../../../components/Icons/IconSmile'
+import { IconSmile } from '../../../../../components/Icons/IconSmile'
 
 export function ButtonCommentSmile() {
   return (

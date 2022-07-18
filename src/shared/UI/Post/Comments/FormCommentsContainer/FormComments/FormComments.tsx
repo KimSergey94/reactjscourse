@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import { IconFormCommentSubmit } from '../../../components/Icons/IconFormCommentSubmit'
+import { IconFormCommentSubmit } from '../../../../components/Icons/IconFormCommentSubmit'
 import { ButtonCommentAdd } from './ButtonCommentAdd'
 import { ButtonCommentSmile } from './ButtonCommentSmile'
 import styles from './formcomments.less'

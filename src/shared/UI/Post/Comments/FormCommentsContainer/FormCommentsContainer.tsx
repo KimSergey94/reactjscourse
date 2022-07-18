@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { FormComments } from '../FormComments/FormComments'
+import { FormComments } from './FormComments/FormComments'
 
 interface IFormCommentsContainer {
   handleSubmit: (comment: string) => void

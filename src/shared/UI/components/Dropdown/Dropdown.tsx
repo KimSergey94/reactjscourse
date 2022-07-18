@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import React from 'react'
 import styles from './dropdown.less'
 import { DropdownContent } from './DropdownContent'

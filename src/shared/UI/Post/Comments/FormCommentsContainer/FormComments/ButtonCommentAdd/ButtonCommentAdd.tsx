@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconAdd } from '../../../../components/Icons/IconAdd'
+import { IconAdd } from '../../../../../components/Icons/IconAdd'
 import styles from './buttoncommentadd.less'
 
 export function ButtonCommentAdd() {
