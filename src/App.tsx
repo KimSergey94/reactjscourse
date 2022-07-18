@@ -9,7 +9,6 @@ import './main.global.less'
 import { CardsList } from './shared/UI/CardsList/CardsList'
 import { Content } from './shared/UI/components/Content/Content'
 import { Header } from './shared/UI/components/Header/Header'
-import { Layout } from './shared/UI/components/Layout'
 import { NotFoundForm } from './shared/UI/NotFoundForm'
 import { Post } from './shared/UI/Post'
 import {
@@ -79,12 +78,12 @@ function AppComponent() {
             <displayTypeContext.Provider
               value={{ displayType: displayType as TDisplayType }}
             >
-              <Layout>
+              <Content>
                 <Routes>
                   <Route path="/notfound/" element={<NotFoundForm />} />
                   <Route path="*" element={<MainRoutes />} />
                 </Routes>
-              </Layout>
+              </Content>
             </displayTypeContext.Provider>
           </UserContextProvider>
         </BrowserRouter>
