@@ -5,20 +5,20 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Action, applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk, { ThunkAction } from 'redux-thunk'
-import { useDisplayType } from './hooks/useDisplayType'
 import './main.global.less'
-import { CardsList } from './shared/CardsList/CardsList'
-import { Content } from './shared/Content/Content'
+import { CardsList } from './shared/UI/CardsList/CardsList'
+import { Content } from './shared/UI/components/Content/Content'
+import { Header } from './shared/UI/components/Header/Header'
+import { Layout } from './shared/UI/components/Layout'
+import { NotFoundForm } from './shared/UI/NotFoundForm'
+import { Post } from './shared/UI/Post'
 import {
   displayTypeContext,
   TDisplayType,
-} from './shared/context/displayTypeContext'
-import { UserContextProvider } from './shared/context/userContext'
-import { Header } from './shared/Header/Header'
-import { Layout } from './shared/Layout/Layout'
-import { NotFoundForm } from './shared/NotFoundForm/NotFoundForm'
-import { Post } from './shared/Post'
-import { rootReducer, RootState } from './store/store'
+} from './shared/utils/react/context/displayTypeContext'
+import { UserContextProvider } from './shared/utils/react/context/userContext'
+import { useDisplayType } from './shared/utils/react/hooks/useDisplayType'
+import { rootReducer, RootState } from './shared/utils/react/store/store'
 
 export const store = createStore(
   rootReducer,
