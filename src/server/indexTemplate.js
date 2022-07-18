@@ -15,4 +15,4 @@ export const indexTemplate = (content, token) => `
     <div id="modal_root"></div>
 </body>
 </html>
-`;
+`

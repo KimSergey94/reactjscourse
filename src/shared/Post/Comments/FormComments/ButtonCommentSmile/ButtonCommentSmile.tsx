@@ -1,11 +1,10 @@
-import React from 'react';
-import { IconSmile } from '../../../../Icons/IconSmile';
-import styles from './buttoncommentsmile.less';
+import React from 'react'
+import { IconSmile } from '../../../../Icons/IconSmile'
 
 export function ButtonCommentSmile() {
   return (
     <button type="button">
       <IconSmile />
     </button>
-  );
+  )
 }

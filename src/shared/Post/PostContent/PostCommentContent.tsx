@@ -1,15 +1,20 @@
-import React from 'react';
-import { Text } from '../../Text';
-import styles from './postcontent.less';
-import thumbnail from '../../../assets/images/postThumbnail.jpg';
+import React from 'react'
+import thumbnail from '../../../assets/images/postThumbnail.jpg'
+import styles from './postcontent.less'
 
 interface IPostContent {
- image?: string;
+  image?: string
 }
-export function PostCommentContent({image}: IPostContent) {
+export function PostCommentContent({ image }: IPostContent) {
   return (
     <div className={styles.container}>
-       <img className={styles.previewImg} src={!image || image === 'default' || image === 'self' ? thumbnail : image} alt="Фоновая картинка карточки" />
+      <img
+        className={styles.previewImg}
+        src={
+          !image || image === 'default' || image === 'self' ? thumbnail : image
+        }
+        alt="Фоновая картинка карточки"
+      />
     </div>
-  );
+  )
 }

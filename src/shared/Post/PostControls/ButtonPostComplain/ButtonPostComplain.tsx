@@ -1,6 +1,6 @@
-import React from 'react';
-import { IconWarning } from '../../../Icons/IconWarning';
-import styles from './buttonpostcomplain.less';
+import React from 'react'
+import { IconWarning } from '../../../Icons/IconWarning'
+import styles from './buttonpostcomplain.less'
 
 export function ButtonPostComplain() {
   return (
@@ -8,5 +8,5 @@ export function ButtonPostComplain() {
       <IconWarning />
       <span className={styles.text}>пожаловаться</span>
     </button>
-  );
+  )
 }

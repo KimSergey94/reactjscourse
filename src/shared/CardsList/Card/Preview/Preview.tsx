@@ -1,14 +1,21 @@
-import React from 'react';
-import styles from './preview.less';
-import postThumbnail from '../../../../assets/images/postThumbnail.jpg';
+import React from 'react'
+import postThumbnail from '../../../../assets/images/postThumbnail.jpg'
+import styles from './preview.less'
 
-export interface IPreviewProps{
-    imgSrc: string;
+export interface IPreviewProps {
+  imgSrc: string
 }
-export function Preview(props: IPreviewProps){
-    return (
-        <div className={styles.preview}>
-            <img className={styles.previewImg} src={!props.imgSrc || props.imgSrc === 'self' || props.imgSrc === 'default' ? postThumbnail : props.imgSrc} />
-        </div>
-        );
+export function Preview(props: IPreviewProps) {
+  return (
+    <div className={styles.preview}>
+      <img
+        className={styles.previewImg}
+        src={
+          !props.imgSrc || props.imgSrc === 'self' || props.imgSrc === 'default'
+            ? postThumbnail
+            : props.imgSrc
+        }
+      />
+    </div>
+  )
 }

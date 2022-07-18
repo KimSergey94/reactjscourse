@@ -1,6 +1,6 @@
 .post {
   position: absolute;
-  width: 100%; 
+  width: 100%;
   background-color: var(--white);
   z-index: 1000;
   top: 50%;
@@ -75,11 +75,11 @@
   margin-right: 7px;
 }
 
-.hideMobile{
+.hideMobile {
   margin-left: 3px;
   display: none;
 }
-.textStatistic{
+.textStatistic {
   display: none;
   color: var(--grey99);
   margin-left: auto;
@@ -90,24 +90,23 @@
   line-height: 12px;
   background-color: var(--greyD9);
 }
-.buttonGroup{
+.buttonGroup {
   display: flex;
 }
 
-.buttonGroup button:not(:last-child){
+.buttonGroup button:not(:last-child) {
   margin-right: 15px;
 }
 
-@media all and (min-width:1024px) {
-  .textStatistic{
+@media all and (min-width: 1024px) {
+  .textStatistic {
     display: inline-block;
- 
   }
-  .hideMobile{
+  .hideMobile {
     display: inline-block;
     color: var(--grey99);
   }
-  .buttonGroup button:not(:last-child){
+  .buttonGroup button:not(:last-child) {
     margin-right: 28px;
   }
   .post {
@@ -115,7 +114,6 @@
   }
   .textContent {
     padding: 52px 52px 22px 97px;
-   
   }
   .publishedLabel {
     display: block;
@@ -139,42 +137,38 @@
   }
 }
 
-
-@media all and (min-width:1024px) {
+@media all and (min-width: 1024px) {
   .post {
     width: 960px;
   }
-
 }
 
-
 .modal {
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.15);
-    border-radius: 7px;
-    min-width: 200px;
-    min-height: 160px;
-    max-width: 80%;
-    padding: 24px;
-    margin-bottom: 25px;
-  }
-  
-  .content {
-    overflow-y: auto;
-  }
-  
-  .close {
-    align-self: flex-end;
-    width: 40px;
-    height: 40px;
-    margin: -24px;
-    color: #000
-  }
-  
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #ffffff;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+  min-width: 200px;
+  min-height: 160px;
+  max-width: 80%;
+  padding: 24px;
+  margin-bottom: 25px;
+}
+
+.content {
+  overflow-y: auto;
+}
+
+.close {
+  align-self: flex-end;
+  width: 40px;
+  height: 40px;
+  margin: -24px;
+  color: #000;
+}

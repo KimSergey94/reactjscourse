@@ -67,7 +67,6 @@ export function CardsList() {
             },
           }
         )
-        console.log('risingResponse', risingResponse)
 
         if (risingResponse.data.data.after == nextAfter) alert(11111)
         const cardPropsTemp: ICardProps[] =
@@ -79,7 +78,6 @@ export function CardsList() {
                 title: x.data.title,
                 imgLink: x.data.thumbnail,
                 cardId: x.data.id,
-                // isCommentModalOpened: false,
                 handleOpenCommentModal: () => {},
               },
               preview: {

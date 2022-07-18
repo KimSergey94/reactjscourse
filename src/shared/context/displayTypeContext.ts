@@ -1,10 +1,11 @@
-import React from 'react';
+import React from 'react'
 
-
-export type TDisplayType = 'mobile' | 'desktop';
+export type TDisplayType = 'mobile' | 'desktop'
 
 type displayTypeContextType = {
-    displayType: TDisplayType;
+  displayType: TDisplayType
 }
 
-export const displayTypeContext = React.createContext<displayTypeContextType>({displayType:'desktop'});
+export const displayTypeContext = React.createContext<displayTypeContextType>({
+  displayType: 'desktop',
+})

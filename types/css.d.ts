@@ -1,6 +1,6 @@
 declare module '*.less' {
-    const styles: { [key:string]: string };
-    export = styles;
+  const styles: { [key: string]: string }
+  export = styles
 }
-declare module '*.jpg';
-declare module '*.png';
+declare module '*.jpg'
+declare module '*.png'
