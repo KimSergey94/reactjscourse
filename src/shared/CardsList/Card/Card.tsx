@@ -16,7 +16,6 @@ export function Card(props: ICardProps) {
   const handleClickModal = () => {
     setIsModalOpened(!isModalOpened)
   }
-
   props.content.handleOpenCommentModal = handleClickModal
 
   return (

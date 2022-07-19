@@ -2,8 +2,10 @@ import axios from 'axios'
 import { Action, ActionCreator } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 import { ICardProps } from '../../../../CardsList/Card/Card'
-import { IRedditRisingResponseData } from '../../../../CardsList/CardsList'
-import { mergeCardPropsArrays } from '../../../js/CardsListHelper'
+import {
+  IRedditRisingResponseData,
+  mergeCardPropsArrays,
+} from '../../../js/CardsListHelper'
 import { RootState } from '../store'
 
 export const SET_CARDS_LIST_DATA = 'SET_CARDS_LIST_DATA'
@@ -60,21 +62,11 @@ export const setCardsListDataAsync =
           }
         )
 
-        console.log(
-          'risingResponse.data.data.after',
-          risingResponse.data.data.after,
-          getState().cardsListData.data.nextAfter
-        )
         if (
           risingResponse.data.data.after ===
           getState().cardsListData.data.nextAfter
-        ) {
-          console.log(
-            'getState().cardsListData.data.nextAfter',
-            getState().cardsListData.data.nextAfter
-          )
+        )
           return
-        }
 
         const cardPropsTemp: ICardProps[] =
           risingResponse.data.data.children?.map((redditT3ResponseData) => {
@@ -99,10 +91,11 @@ export const setCardsListDataAsync =
               cardId: redditT3ResponseData.data.id,
             }
           })
+
         dispatch(
           setCardsListDataSuccess({
             nextAfter: risingResponse.data.data.after,
-            cardProps: mergeCardPropsArrays(
+            cardsList: mergeCardPropsArrays(
               getState().cardsListData.data.cardsList,
               cardPropsTemp
             ),

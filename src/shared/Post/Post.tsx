@@ -6,9 +6,14 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import avatar from '../../assets/images/avatar.jpg'
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter'
-import { IRedditData, IRedditListingResponseData } from '../CardsList/CardsList'
 import { ReturnArrow } from '../components/Icons/ReturnArrow'
-import { iterateAndCountComments, iterateChildren } from '../lib/js/PostHelper'
+import { IRedditData } from '../lib/js/CardsListHelper'
+import {
+  IPost,
+  IRedditCommentsResponseData,
+  iterateAndCountComments,
+  iterateChildren,
+} from '../lib/js/PostHelper'
 import { RootState } from '../lib/react/store/store'
 import { Comments, ICommentsList } from './Comments'
 import styles from './post.less'
@@ -21,18 +26,6 @@ import { ButtonPostSave } from './PostControls/ButtonPostSave'
 import { ButtonPostShare } from './PostControls/ButtonPostShare'
 import { PostHeader } from './PostHeader'
 
-interface IPost {
-  title: string
-  author: string
-  category?: string
-  description?: string
-  onClose?: () => void
-  cardId: string
-  avatar?: string
-}
-export interface IRedditCommentsResponseData {
-  data: IRedditListingResponseData[]
-}
 export function Post(props: IPost) {
   const navigate = useNavigate()
   const { id } = useParams()

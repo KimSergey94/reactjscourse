@@ -9,6 +9,7 @@ import {
   SET_CARDS_LIST_DATA,
   SET_CARDS_LIST_DATA_FAILURE,
   SET_CARDS_LIST_DATA_SUCCESS,
+  SET_LOAD_MORE_TRIGGER,
 } from './postsCards/actions'
 import {
   CardsListActions,
@@ -70,6 +71,7 @@ export const rootReducer: Reducer<RootState, MyAction> = (
     case SET_CARDS_LIST_DATA:
     case SET_CARDS_LIST_DATA_SUCCESS:
     case SET_CARDS_LIST_DATA_FAILURE:
+    case SET_LOAD_MORE_TRIGGER:
       return {
         ...state,
         cardsListData: cardsListReducer(state.cardsListData, action),

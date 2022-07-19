@@ -1,5 +1,8 @@
-import { IRedditT3ResponseData } from '../../CardsList'
 import { ICommentsList } from '../../Post/Comments'
+import {
+  IRedditListingResponseData,
+  IRedditT3ResponseData,
+} from './CardsListHelper'
 
 export function iterateChildren(
   redditT3ResponseDataArr: IRedditT3ResponseData[]
@@ -35,4 +38,17 @@ export function iterateAndCountComments(commentsList: ICommentsList[]): number {
       result = result + iterateAndCountComments(comment.children)
   })
   return result
+}
+
+export interface IPost {
+  title: string
+  author: string
+  category?: string
+  description?: string
+  onClose?: () => void
+  cardId: string
+  avatar?: string
+}
+export interface IRedditCommentsResponseData {
+  data: IRedditListingResponseData[]
 }
