@@ -9,18 +9,18 @@ import {
   IUserData,
 } from './actions'
 
-export type MeState = {
+export type AuthState = {
   loading: boolean
   error: string
   data: IUserData
 }
 
-type MeActions =
+export type AuthActions =
   | AuthRequestAction
   | AuthRequestSuccessAction
   | AuthRequestFailureAction
 
-export const meReducer: Reducer<MeState, MeActions> = (state, action) => {
+export const authReducer: Reducer<AuthState, AuthActions> = (state, action) => {
   switch (action.type) {
     case AUTH_REQUEST:
       return {

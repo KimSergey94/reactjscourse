@@ -1,10 +1,8 @@
-import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-import { mergeCardPropsArrays } from '../lib/js/CardsListHelper'
-import { RootState } from '../lib/react/store/store'
-import { Card, ICardProps } from './Card/Card'
+import { cardsListContext } from '../lib/react/context/cardsListContext'
+import { setLoadMoreTrigger } from '../lib/react/store/postsCards/actions'
+import { Card } from './Card/Card'
 import styles from './cardslist.less'
 
 export interface IRedditRisingResponseData {
@@ -41,113 +39,16 @@ export interface IRedditData {
 }
 
 export function CardsList() {
-  const token = useSelector<RootState>((state) => state.token)
-  const [loading, setLoading] = useState(false)
-  const [errorLoading, setErrorLoading] = useState('')
-  const [nextAfter, setNextAfter] = useState('')
-  const [intersectionCounter, setIntersectionCounter] = useState(-1)
-  const [showLoadBtn, setShowLoadBtn] = useState(false)
-  const [loadMoreTrigger, setLoadMoreTrigger] = useState(false)
-  const [cardProps, setCardPosts] = useState<ICardProps[]>([])
-
-  const bottomOfList = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    async function load() {
-      setLoading(true)
-      setErrorLoading('')
-
-      try {
-        const risingResponse: IRedditRisingResponseData = await axios.get(
-          'https://oauth.reddit.com/rising/',
-          {
-            headers: { Authorization: `bearer ${token}` },
-            params: {
-              limit: 5,
-              after: nextAfter,
-            },
-          }
-        )
-
-        if (risingResponse.data.data.after === nextAfter) alert(11111)
-        const cardPropsTemp: ICardProps[] =
-          risingResponse.data.data.children?.map((x) => {
-            return {
-              content: {
-                displayName: x.data.author || x.data.name,
-                postedTimeAgo: x.data.created,
-                title: x.data.title,
-                imgLink: x.data.thumbnail,
-                cardId: x.data.id,
-                handleOpenCommentModal: () => {},
-              },
-              preview: {
-                imgSrc: x.data.thumbnail,
-              },
-              controls: {
-                karmaValue: x.data.ups,
-                commentsNumber: x.data.score,
-              },
-              cardId: x.data.id,
-            }
-          })
-        setNextAfter(risingResponse.data.data.after)
-        setCardPosts((prevChildren) =>
-          mergeCardPropsArrays(prevChildren, cardPropsTemp)
-        )
-      } catch (err) {
-        console.error(err)
-        setErrorLoading('Не удалось загрузить посты.')
-      }
-
-      setLoading(false)
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (
-          entries[0].isIntersecting &&
-          nextAfter !== null &&
-          !loadMoreTrigger
-        ) {
-          setIntersectionCounter(intersectionCounter + 1)
-          if (intersectionCounter > 2 && intersectionCounter % 3 === 0) {
-            setShowLoadBtn(true)
-          } else {
-            load()
-            setShowLoadBtn(false)
-          }
-        }
-      },
-      {
-        rootMargin: '10px',
-      }
-    )
-
-    if (bottomOfList.current) {
-      observer.observe(bottomOfList.current)
-    }
-
-    if (loadMoreTrigger) {
-      load()
-      setLoadMoreTrigger(false)
-    }
-
-    return () => {
-      if (bottomOfList.current) {
-        observer.unobserve(bottomOfList.current)
-      }
-    }
-  }, [bottomOfList.current, nextAfter, token, loadMoreTrigger])
+  const { data, showLoadBtn, bottomOfList } = useContext(cardsListContext)
 
   return (
     <>
       <ul className={styles.cardsList}>
-        {cardProps?.length === 0 && !loading && !errorLoading && (
+        {data?.data.cardsList?.length === 0 && !data.loading && !data.error && (
           <div style={{ textAlign: 'center' }}>Нет ни одного поста</div>
         )}
 
-        {cardProps?.map((x) => (
+        {data?.data.cardsList?.map((x) => (
           <Card
             key={x.cardId}
             content={x.content}
@@ -158,7 +59,9 @@ export function CardsList() {
         ))}
 
         <div ref={bottomOfList} />
-        {loading && <div style={{ textAlign: 'center' }}>Загрузка...</div>}
+        {data?.loading && (
+          <div style={{ textAlign: 'center' }}>Загрузка...</div>
+        )}
         {showLoadBtn && (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <button
@@ -170,9 +73,9 @@ export function CardsList() {
           </div>
         )}
 
-        {errorLoading && (
+        {data?.error && (
           <div role="alert" style={{ textAlign: 'center' }}>
-            {errorLoading}
+            {data.error}
           </div>
         )}
       </ul>

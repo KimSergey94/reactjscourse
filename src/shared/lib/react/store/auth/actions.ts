@@ -50,8 +50,6 @@ export const authRequestAsync =
       })
       .then((resp) => {
         const userData = resp.data
-        // const myUserData = {name: userData.name, iconImg: userData.icon_img};
-        // setData(myUserData);
         dispatch(
           authRequestSuccess({
             name: userData.name,

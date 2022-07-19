@@ -9,6 +9,7 @@ import './main.global.less'
 import { CardsList } from './shared/CardsList'
 import { Content } from './shared/components/Content'
 import { Header } from './shared/Header'
+import { CardsListContextProvider } from './shared/lib/react/context/cardsListContext'
 import {
   displayTypeContext,
   TDisplayType,
@@ -75,16 +76,18 @@ function AppComponent() {
       {mounted && (
         <BrowserRouter>
           <UserContextProvider>
-            <displayTypeContext.Provider
-              value={{ displayType: displayType as TDisplayType }}
-            >
-              <Content>
-                <Routes>
-                  <Route path="/notfound/" element={<NotFoundForm />} />
-                  <Route path="*" element={<MainRoutes />} />
-                </Routes>
-              </Content>
-            </displayTypeContext.Provider>
+            <CardsListContextProvider>
+              <displayTypeContext.Provider
+                value={{ displayType: displayType as TDisplayType }}
+              >
+                <Content>
+                  <Routes>
+                    <Route path="/notfound/" element={<NotFoundForm />} />
+                    <Route path="*" element={<MainRoutes />} />
+                  </Routes>
+                </Content>
+              </displayTypeContext.Provider>
+            </CardsListContextProvider>
           </UserContextProvider>
         </BrowserRouter>
       )}

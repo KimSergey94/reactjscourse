@@ -1,41 +1,43 @@
 import { ActionCreator, Reducer } from 'redux'
-import { ICardProps } from '../../../CardsList/Card/Card'
 import {
-  AuthRequestAction,
-  AuthRequestFailureAction,
-  AuthRequestSuccessAction,
   AUTH_REQUEST,
   AUTH_REQUEST_FAILURE,
   AUTH_REQUEST_SUCCESS,
 } from './auth/actions'
-import { meReducer, MeState } from './auth/reducer'
+import { AuthActions, authReducer, AuthState } from './auth/reducer'
+import {
+  SET_CARDS_LIST_DATA,
+  SET_CARDS_LIST_DATA_FAILURE,
+  SET_CARDS_LIST_DATA_SUCCESS,
+} from './postsCards/actions'
+import {
+  CardsListActions,
+  cardsListReducer,
+  CardsListState,
+} from './postsCards/reducer'
 
 export type RootState = {
-  commentText: string
   token: string
-  me: MeState
-  cardProps: ICardProps[]
+  auth: AuthState
+  cardsListData: CardsListState
 }
 const initialState: RootState = {
-  commentText: 'Привет, Skillbox!',
   token: '',
-  me: {
+  auth: {
     loading: false,
     error: '',
     data: {},
   },
-  cardProps: [],
+  cardsListData: {
+    loading: false,
+    error: '',
+    data: {
+      cardsList: [],
+    },
+    loadMoreTrigger: false,
+  },
 }
 
-const UPDATE_COMMENT = 'UPDATE_COMMENT'
-type UpdateCommentAction = {
-  type: typeof UPDATE_COMMENT
-  text: string
-}
-export const updateComment: ActionCreator<UpdateCommentAction> = (text) => ({
-  type: UPDATE_COMMENT,
-  text,
-})
 const SET_TOKEN = 'SET_TOKEN'
 type SetTokenAction = {
   type: typeof SET_TOKEN
@@ -46,23 +48,13 @@ export const setToken: ActionCreator<SetTokenAction> = (token: string) => ({
   token,
 })
 
-type MyAction =
-  | UpdateCommentAction
-  | SetTokenAction
-  | AuthRequestAction
-  | AuthRequestSuccessAction
-  | AuthRequestFailureAction
+type MyAction = SetTokenAction | AuthActions | CardsListActions
 
 export const rootReducer: Reducer<RootState, MyAction> = (
   state = initialState,
   action
 ) => {
   switch (action.type) {
-    case UPDATE_COMMENT:
-      return {
-        ...state,
-        commentText: action.text,
-      }
     case SET_TOKEN:
       return {
         ...state,
@@ -73,7 +65,14 @@ export const rootReducer: Reducer<RootState, MyAction> = (
     case AUTH_REQUEST_FAILURE:
       return {
         ...state,
-        me: meReducer(state.me, action),
+        auth: authReducer(state.auth, action),
+      }
+    case SET_CARDS_LIST_DATA:
+    case SET_CARDS_LIST_DATA_SUCCESS:
+    case SET_CARDS_LIST_DATA_FAILURE:
+      return {
+        ...state,
+        cardsListData: cardsListReducer(state.cardsListData, action),
       }
     default:
       return state
