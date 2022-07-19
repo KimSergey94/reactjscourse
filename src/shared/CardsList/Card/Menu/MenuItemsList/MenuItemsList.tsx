@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import { displayTypeContext } from '../../../../../utils/react/context/displayTypeContext'
 import { EIconName, Icon } from '../../../../components/Icons/Icon'
 import { EColors, Text } from '../../../../components/Text'
+import { displayTypeContext } from '../../../../lib/react/context/displayTypeContext'
 import styles from './menuitemslist.less'
 
 interface IMenuItemsListProps {

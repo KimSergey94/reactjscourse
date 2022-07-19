@@ -1,5 +1,5 @@
 import React from 'react'
-import thumbnail from '../../../../assets/images/postThumbnail.jpg'
+import thumbnail from '../../../assets/images/postThumbnail.jpg'
 import styles from './postcontent.less'
 
 interface IPostContent {

@@ -1,7 +1,7 @@
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
 import React, { ChangeEvent, useContext } from 'react'
-import { userContext } from '../../../utils/react/context/userContext'
+import { userContext } from '../../lib/react/context/userContext'
 import styles from './comments.less'
 import { FormCommentsContainer } from './FormCommentsContainer'
 import { ListComments } from './ListComments'

@@ -1,5 +1,5 @@
 import { ActionCreator, Reducer } from 'redux'
-import { ICardProps } from '../../../UI/CardsList/Card/Card'
+import { ICardProps } from '../../../CardsList/Card/Card'
 import {
   AuthRequestAction,
   AuthRequestFailureAction,

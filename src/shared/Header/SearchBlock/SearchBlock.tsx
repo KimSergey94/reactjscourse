@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { userContext } from '../../../../utils/react/context/userContext'
+import { userContext } from '../../lib/react/context/userContext'
 import styles from './searchblock.less'
 import { UserBlock } from './UserBlock'
 

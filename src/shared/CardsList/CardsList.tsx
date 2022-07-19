@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import { RootState } from '../../utils/react/store/store'
+import { RootState } from '../lib/react/store/store'
 import { Card, ICardProps } from './Card/Card'
 import styles from './cardslist.less'
 

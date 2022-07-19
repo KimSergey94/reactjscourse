@@ -4,8 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import avatar from '../../../assets/images/avatar.jpg'
-import { RootState } from '../../utils/react/store/store'
+import avatar from '../../assets/images/avatar.jpg'
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter'
 import {
   IRedditData,
@@ -13,6 +12,7 @@ import {
   IRedditT3ResponseData,
 } from '../CardsList/CardsList'
 import { ReturnArrow } from '../components/Icons/ReturnArrow'
+import { RootState } from '../lib/react/store/store'
 import { Comments, ICommentsList } from './Comments'
 import styles from './post.less'
 import { PostCommentContent } from './PostContent'

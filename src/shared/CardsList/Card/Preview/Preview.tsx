@@ -1,5 +1,5 @@
 import React from 'react'
-import postThumbnail from '../../../../../assets/images/postThumbnail.jpg'
+import postThumbnail from '../../../../assets/images/postThumbnail.jpg'
 import styles from './preview.less'
 
 export interface IPreviewProps {

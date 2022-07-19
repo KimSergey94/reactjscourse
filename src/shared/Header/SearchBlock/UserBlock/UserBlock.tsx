@@ -1,9 +1,8 @@
 import React from 'react'
-import { CLIENT_ID, SERVER_URL } from '../../../../../../../config'
-import { Break } from '../../../Break/Break'
-import { EIconName, Icon } from '../../../Icons/Icon'
-import { EColors } from '../../../Text'
-import { Text } from '../../../Text/Text'
+import { CLIENT_ID, SERVER_URL } from '../../../../../config'
+import { Break } from '../../../components/Break/Break'
+import { EIconName, Icon } from '../../../components/Icons/Icon'
+import { EColors, Text } from '../../../components/Text'
 import styles from './userblock.less'
 
 interface IUserBlockProps {

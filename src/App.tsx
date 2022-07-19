@@ -6,18 +6,18 @@ import { Action, applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk, { ThunkAction } from 'redux-thunk'
 import './main.global.less'
-import { CardsList } from './shared/UI/CardsList/CardsList'
-import { Content } from './shared/UI/components/Content/Content'
-import { Header } from './shared/UI/components/Header/Header'
-import { NotFoundForm } from './shared/UI/NotFoundForm'
-import { Post } from './shared/UI/Post'
+import { CardsList } from './shared/CardsList'
+import { Content } from './shared/components/Content'
+import { Header } from './shared/Header'
 import {
   displayTypeContext,
   TDisplayType,
-} from './shared/utils/react/context/displayTypeContext'
-import { UserContextProvider } from './shared/utils/react/context/userContext'
-import { useDisplayType } from './shared/utils/react/hooks/useDisplayType'
-import { rootReducer, RootState } from './shared/utils/react/store/store'
+} from './shared/lib/react/context/displayTypeContext'
+import { UserContextProvider } from './shared/lib/react/context/userContext'
+import { useDisplayType } from './shared/lib/react/hooks/useDisplayType'
+import { rootReducer, RootState } from './shared/lib/react/store/store'
+import { NotFoundForm } from './shared/NotFoundForm'
+import { Post } from './shared/Post'
 
 export const store = createStore(
   rootReducer,
