@@ -6,12 +6,9 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import avatar from '../../assets/images/avatar.jpg'
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter'
-import {
-  IRedditData,
-  IRedditListingResponseData,
-  IRedditT3ResponseData,
-} from '../CardsList/CardsList'
+import { IRedditData, IRedditListingResponseData } from '../CardsList/CardsList'
 import { ReturnArrow } from '../components/Icons/ReturnArrow'
+import { iterateAndCountComments, iterateChildren } from '../lib/js/PostHelper'
 import { RootState } from '../lib/react/store/store'
 import { Comments, ICommentsList } from './Comments'
 import styles from './post.less'
@@ -43,28 +40,6 @@ export function Post(props: IPost) {
   const token = useSelector<RootState>((state) => state.token)
   const [postInfo, setPostInfo] = useState<IRedditData>({} as IRedditData)
   const [commentsList, setCommentsList] = useState<ICommentsList[]>([])
-
-  function iterateChildren(x: IRedditT3ResponseData[]): ICommentsList[] {
-    var result: ICommentsList[] = []
-    x.forEach((xx) => {
-      if (xx.data.body) {
-        let comment: ICommentsList = {
-          text: xx.data.body,
-          children: [],
-          author: xx.data.author,
-          category: xx.data.subreddit,
-          avatarSrc: xx.data.thumbnail,
-          id: xx.data.id,
-          created_utc: xx.data.created_utc,
-          score: xx.data.score,
-        }
-        if (xx.data?.replies?.data?.children)
-          comment.children = iterateChildren(xx.data?.replies?.data?.children)
-        result.push(comment)
-      }
-    })
-    return result
-  }
 
   useEffect(() => {
     function handleClick(event: MouseEvent) {
@@ -148,13 +123,4 @@ export function Post(props: IPost) {
     </div>,
     node
   )
-}
-
-function iterateAndCountComments(commentsList: ICommentsList[]): number {
-  var result = 0
-  commentsList.forEach((x) => {
-    result++
-    if (x.children) result = result + iterateAndCountComments(x.children)
-  })
-  return result
 }

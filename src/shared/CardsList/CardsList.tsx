@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+import { mergeCardPropsArrays } from '../lib/js/CardsListHelper'
 import { RootState } from '../lib/react/store/store'
 import { Card, ICardProps } from './Card/Card'
 import styles from './cardslist.less'
@@ -178,15 +179,4 @@ export function CardsList() {
       <Outlet />
     </>
   )
-}
-
-function mergeCardPropsArrays(
-  currentArray: ICardProps[],
-  newArray: ICardProps[]
-): ICardProps[] {
-  var indexes = currentArray.map((x) => x.cardId)
-  return [
-    ...currentArray,
-    ...newArray.filter((x) => !indexes.includes(x.cardId)),
-  ]
 }

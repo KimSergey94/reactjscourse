@@ -10,7 +10,7 @@ export function ButtonComment({ totalComments }: IButtonCommentProps) {
     <button className={styles.button}>
       <ButtonCommentsIcon />
       <span>
-        {`${totalComments}`}
+        {totalComments}
         <span className={styles.spanHide}>коментариев</span>
       </span>
     </button>
