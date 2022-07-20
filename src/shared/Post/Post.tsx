@@ -97,7 +97,7 @@ export function Post(props: IPost) {
         <h2 className={styles.title}>{postInfo.title}</h2>
       </div>
       <PostCommentContent image={postInfo.thumbnail} />
-      <Content>
+      <Content isPostContent={true}>
         <div className={styles.karma}>
           <KarmaCounter score={postInfo.score} />
         </div>
