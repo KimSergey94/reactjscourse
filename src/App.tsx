@@ -46,7 +46,6 @@ function AppComponent() {
     store.dispatch(timeout(1500))
   }, [])
 
-  // const [posts] = usePostsData();
   const [displayType] = useDisplayType()
   const MainRoutes = () => {
     return (

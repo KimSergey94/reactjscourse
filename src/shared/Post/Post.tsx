@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import avatar from '../../assets/images/avatar.jpg'
 import { KarmaCounter } from '../CardsList/Card/Controls/KarmaCounter'
+import { Content } from '../components/Content'
 import { ReturnArrow } from '../components/Icons/ReturnArrow'
 import { IRedditData } from '../lib/js/CardsListHelper'
 import {
@@ -18,7 +19,6 @@ import { RootState } from '../lib/react/store/store'
 import { Comments, ICommentsList } from './Comments'
 import styles from './post.less'
 import { PostCommentContent } from './PostContent'
-import { PostControls } from './PostControls'
 import { ButtonComment } from './PostControls/ButtonComment'
 import { ButtonPostComplain } from './PostControls/ButtonPostComplain'
 import { ButtonPostHide } from './PostControls/ButtonPostHide'
@@ -97,7 +97,7 @@ export function Post(props: IPost) {
         <h2 className={styles.title}>{postInfo.title}</h2>
       </div>
       <PostCommentContent image={postInfo.thumbnail} />
-      <PostControls>
+      <Content>
         <div className={styles.karma}>
           <KarmaCounter score={postInfo.score} />
         </div>
@@ -111,7 +111,7 @@ export function Post(props: IPost) {
         <div className={styles.textStatistic}>
           {67} %<span className={styles.hideMobile}>проголосовали</span>
         </div>
-      </PostControls>
+      </Content>
       <Comments commentsList={commentsList} />
     </div>,
     node
