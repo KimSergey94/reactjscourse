@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import { userContext } from '../../lib/react/context/userContext'
+import { useUserData } from '../../lib/react/hooks/useUserData'
 import styles from './searchblock.less'
 import { UserBlock } from './UserBlock'
 
 export function SearchBlock() {
-  const { data, loading } = useContext(userContext)
+  const { data, loading } = useUserData()
   return (
     <div className={styles.searchBlock}>
       <UserBlock

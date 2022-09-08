@@ -1,7 +1,7 @@
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
 import React, { ChangeEvent, useContext } from 'react'
-import { userContext } from '../../lib/react/context/userContext'
+import { useUserData } from '../../lib/react/hooks/useUserData'
 import styles from './comments.less'
 import { FormCommentsContainer } from './FormCommentsContainer'
 import { ListComments } from './ListComments'
@@ -30,7 +30,7 @@ export function Comments({ commentsList }: ICommentsProps) {
   function onChange(event: ChangeEvent<HTMLTextAreaElement>) {
     updateComment(event.target.value)
   }
-  const { data } = useContext(userContext)
+  const { data } = useUserData()
 
   function handleSubmitForm(comment: string) {
     if (!data?.name) {

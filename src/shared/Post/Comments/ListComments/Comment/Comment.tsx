@@ -3,7 +3,7 @@ import { useStore } from 'effector-react'
 import moment from 'moment'
 import React, { ChangeEvent, useContext, useState } from 'react'
 import { IconAnon } from '../../../../components/Icons/IconAnon'
-import { userContext } from '../../../../lib/react/context/userContext'
+import { useUserData } from '../../../../lib/react/hooks/useUserData'
 import { ICommentsList } from '../../Comments'
 import { FormCommentsContainer } from '../../FormCommentsContainer'
 import { CommentBar } from '../CommentBar'
@@ -27,7 +27,7 @@ export function Comment(props: ICommentProps) {
   }
   const [subComments] = useState(props.comment.children)
   const [isVisibleForm, setVisibleForm] = useState(false)
-  const { data } = useContext(userContext)
+  const { data } = useUserData()
 
   function submitForm(comment: string) {
     if (!data?.name) {

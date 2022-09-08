@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import { cardsListContext } from '../lib/react/context/cardsListContext'
+import { useCardsListData } from '../lib/react/hooks/useCardsListData'
 import { setLoadMoreTrigger } from '../lib/react/store/postsCards/actions'
 import { Card } from './Card/Card'
 import styles from './cardslist.less'
 
 export function CardsList() {
-  const { data, showLoadBtn, bottomOfList } = useContext(cardsListContext)
+  const { data, showLoadBtn, bottomOfList } = useCardsListData()
   const dispatch = useDispatch()
 
   return (

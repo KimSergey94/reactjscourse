@@ -9,12 +9,10 @@ import './main.global.less'
 import { CardsList } from './shared/CardsList'
 import { Content } from './shared/components/Content'
 import { Header } from './shared/Header'
-import { CardsListContextProvider } from './shared/lib/react/context/cardsListContext'
 import {
   displayTypeContext,
   TDisplayType,
 } from './shared/lib/react/context/displayTypeContext'
-import { UserContextProvider } from './shared/lib/react/context/userContext'
 import { useDisplayType } from './shared/lib/react/hooks/useDisplayType'
 import { rootReducer, RootState } from './shared/lib/react/store/store'
 import { NotFoundForm } from './shared/NotFoundForm'
@@ -74,20 +72,16 @@ function AppComponent() {
     <Provider store={store}>
       {mounted && (
         <BrowserRouter>
-          <UserContextProvider>
-            <CardsListContextProvider>
-              <displayTypeContext.Provider
-                value={{ displayType: displayType as TDisplayType }}
-              >
-                <Content>
-                  <Routes>
-                    <Route path="/notfound/" element={<NotFoundForm />} />
-                    <Route path="*" element={<MainRoutes />} />
-                  </Routes>
-                </Content>
-              </displayTypeContext.Provider>
-            </CardsListContextProvider>
-          </UserContextProvider>
+          <displayTypeContext.Provider
+            value={{ displayType: displayType as TDisplayType }}
+          >
+            <Content>
+              <Routes>
+                <Route path="/notfound/" element={<NotFoundForm />} />
+                <Route path="*" element={<MainRoutes />} />
+              </Routes>
+            </Content>
+          </displayTypeContext.Provider>
         </BrowserRouter>
       )}
     </Provider>
