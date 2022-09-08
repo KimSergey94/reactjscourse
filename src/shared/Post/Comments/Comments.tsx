@@ -1,6 +1,6 @@
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
-import React, { ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent, FormEvent } from 'react'
 import { useUserData } from '../../lib/react/hooks/useUserData'
 import styles from './comments.less'
 import { FormCommentsContainer } from './FormCommentsContainer'
@@ -32,7 +32,8 @@ export function Comments({ commentsList }: ICommentsProps) {
   }
   const { data } = useUserData()
 
-  function handleSubmitForm(comment: string) {
+  function handleSubmitForm(comment: string, e: FormEvent) {
+    e.preventDefault()
     if (!data?.name) {
       console.log('Что бы оставить комментарий авторизуйтесь')
       return

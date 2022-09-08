@@ -1,8 +1,14 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { FormComments } from './FormComments/FormComments'
 
 interface IFormCommentsContainer {
-  handleSubmit: (comment: string) => void
+  handleSubmit: (comment: string, e: FormEvent) => void
   handleChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
   valueInput: string
   name?: string

@@ -1,11 +1,11 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, FormEvent } from 'react'
 import { IconFormCommentSubmit } from '../../../../components/Icons/IconFormCommentSubmit'
 import { ButtonCommentAdd } from './ButtonCommentAdd'
 import { ButtonCommentSmile } from './ButtonCommentSmile'
 import styles from './formcomments.less'
 
 interface IFormComments {
-  handleSubmit: (comment: string) => void
+  handleSubmit: (comment: string, e: FormEvent) => void
   handleChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
   valueInput: string
   name?: string
@@ -25,7 +25,7 @@ export function FormComments({
   return (
     <div ref={myRef} className={styles.containerForm}>
       <form
-        onSubmit={() => handleSubmit(valueInput)}
+        onSubmit={(e) => handleSubmit(valueInput, e)}
         className={styles.form}
         action=""
       >
